@@ -123,10 +123,10 @@ export default async function HomePage({ params }: Params) {
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <Reveal>
             <span className="pill">{dict.clients.label}</span>
-            <div className="mt-10 grid grid-cols-1 divide-y divide-line border-y border-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden border border-line bg-line md:grid-cols-4">
               {dict.clients.items.map((c) => {
                 const cls =
-                  "flex items-center justify-center py-12 font-display text-3xl font-semibold tracking-tight text-ink transition-colors md:text-4xl";
+                  "flex items-center justify-center bg-paper py-12 font-display text-2xl font-semibold tracking-tight text-ink transition-colors md:text-3xl";
                 return c.url ? (
                   <a
                     key={c.name}

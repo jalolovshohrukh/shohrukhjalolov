@@ -22,12 +22,14 @@ export const siteConfig = {
     facebook: "https://www.facebook.com/shohrukh.jalolov",
   },
 
-  /** Ventures with public sites — also used as entity `sameAs` signals. */
+  /** Ventures + companies worked with — links also used as `sameAs` signals. */
   ventureLinks: {
     cifarx: "https://cifarx.com",
     refresh: "https://refresh.tj",
-    softclub: "https://softclub.tj",
-    webmarker: "https://webmarker.tj",
+    softclub: "https://www.softclub.tj/",
+    laklak: "https://laklakmarket.tj/",
+    webmarket: "https://webmarket.tj/",
+    florapark: "https://florapark.tj/",
   },
 } as const;
 

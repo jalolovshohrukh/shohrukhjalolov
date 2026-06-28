@@ -4,9 +4,10 @@ import { siteConfig } from "@/lib/siteConfig";
  * English dictionary — source-of-truth shape; Russian must mirror it.
  * Copy is "quotable-first" for AI search engines (GEO).
  *
- * Facts: Shohrukh is Business Developer at CifarX, co-founder of Refresh, and
- * software developer of Makon (a real estate project). He has worked with
- * SoftClub, LakLak, and Webmarker. He is NOT an advisor/investor.
+ * Facts: Shohrukh is an entrepreneur and business developer — Business
+ * Developer at CifarX, co-founder of Refresh, and founder of Makon (his own
+ * real estate product). He has worked with SoftClub, LakLak, Webmarket, and
+ * Flora Park. He is NOT a software developer / advisor / investor.
  */
 export const en = {
   langName: "English",
@@ -14,29 +15,29 @@ export const en = {
 
   meta: {
     home: {
-      title: "Shohrukh Jalolov — Entrepreneur, Business & Software Developer",
+      title: "Shohrukh Jalolov — Entrepreneur, Business Developer & Founder",
       description:
-        "Shohrukh Jalolov is an entrepreneur, business developer, and software developer based in Dushanbe, Tajikistan — Business Developer at CifarX, co-founder of Refresh, and software developer of Makon, a real estate project.",
+        "Shohrukh Jalolov is an entrepreneur and business developer based in Dushanbe, Tajikistan — Business Developer at CifarX, co-founder of Refresh, and founder of Makon, a real estate product.",
     },
     about: {
       title: "About — Shohrukh Jalolov",
       description:
-        "About Shohrukh Jalolov: entrepreneur, business developer, and software developer. B.A. in Computer Science and Mathematics from Lewis & Clark College.",
+        "About Shohrukh Jalolov: entrepreneur, business developer, and founder. B.A. in Computer Science and Mathematics from Lewis & Clark College.",
     },
     work: {
       title: "Work & Ventures — Shohrukh Jalolov",
       description:
-        "The work of Shohrukh Jalolov: business development at CifarX, co-founding Refresh, and software development for Makon — plus the companies he has worked with.",
+        "The work of Shohrukh Jalolov: business development at CifarX, co-founding Refresh, and founding Makon — plus the companies he has worked with.",
     },
     vision: {
       title: "Vision — Shohrukh Jalolov",
       description:
-        "Shohrukh Jalolov on building durable companies, building software, and growing the technology ecosystem of Central Asia.",
+        "Shohrukh Jalolov on building durable companies and products, and growing the technology ecosystem of Central Asia.",
     },
     updates: {
       title: "Weekly Updates — Shohrukh Jalolov",
       description:
-        "Weekly notes from Shohrukh Jalolov on building ventures, writing software, and what he is learning along the way.",
+        "Weekly notes from Shohrukh Jalolov on building ventures and products, and what he is learning along the way.",
     },
     contact: {
       title: "Contact — Shohrukh Jalolov",
@@ -57,20 +58,21 @@ export const en = {
   hero: {
     eyebrow: "Dushanbe · Tajikistan",
     name: "Shohrukh Jalolov",
-    headlineA: "Building ventures and",
-    headlineB: "the software behind them.",
-    lead: "I am an entrepreneur, business developer, and software developer based in Dushanbe, Tajikistan. I lead business development at CifarX, co-founded Refresh, and build the software for Makon, a real estate project.",
+    headlineA: "Entrepreneur, operator,",
+    headlineB: "builder.",
+    lead: "I am an entrepreneur and business developer based in Dushanbe, Tajikistan. I lead business development at CifarX, co-founded Refresh, and founded Makon, a real estate product of my own.",
     ctaWork: "See the work",
     ctaContact: "Get in touch",
-    tags: ["Business development", "Software development", "Startups", "Real estate"],
+    tags: ["Business development", "Startups", "Products", "Real estate"],
   },
 
   clients: {
     label: "Companies I have worked with",
     items: [
       { name: "SoftClub", url: siteConfig.ventureLinks.softclub },
-      { name: "LakLak", url: "" },
-      { name: "Webmarker", url: siteConfig.ventureLinks.webmarker },
+      { name: "LakLak", url: siteConfig.ventureLinks.laklak },
+      { name: "Webmarket", url: siteConfig.ventureLinks.webmarket },
+      { name: "Flora Park", url: siteConfig.ventureLinks.florapark },
     ],
   },
 
@@ -97,8 +99,8 @@ export const en = {
         body: "I co-founded Refresh and help take a modern product from idea to market in Tajikistan.",
       },
       {
-        title: "Software development",
-        body: "I build software, including Makon — a real estate project — turning real-world problems into working products.",
+        title: "Building my own products",
+        body: "I build products of my own, including Makon — a real estate product in Tajikistan.",
       },
     ],
   },
@@ -108,18 +110,18 @@ export const en = {
     title: "What I am building toward",
     paragraphs: [
       "I believe the next generation of great companies will be built far from the usual places — including here, in Tajikistan and across Central Asia. My work is a bet on that belief.",
-      "I try to be useful in two ways at once: developing companies on the business side, and building the software that makes them real. The work that compounds is rarely glamorous — it is the partnerships, the products, and the execution that quietly add up.",
+      "I try to be useful in two ways at once: developing companies on the business side, and building products of my own. The work that compounds is rarely glamorous — it is the partnerships, the products, and the execution that quietly add up.",
       "Over the long run I want to help build an ecosystem where talented people in the region can start ambitious companies, find opportunity close to home, and compete on a global stage. Every company I help develop and every product I build is a step toward that.",
     ],
     pullquote:
-      "Build companies that earn their keep. Build the software that powers them. Be patient about the rest.",
+      "Build companies that earn their keep. Build products people actually use. Be patient about the rest.",
     cta: "Read the weekly updates",
   },
 
   ventures: {
     eyebrow: "Work & Ventures",
     title: "Where I spend my time",
-    lead: "A focused set of companies I build and develop — from business development to software.",
+    lead: "A focused set of companies I develop and build — from business development to products of my own.",
     visit: "Visit",
     items: [
       {
@@ -143,12 +145,11 @@ export const en = {
       {
         id: "makon",
         name: "Makon",
-        role: "Software Developer",
+        role: "Founder",
         tag: "Real Estate",
-        // TODO: add Makon's URL if it has a public site.
         url: "",
         blurb:
-          "Makon is a real estate project in Tajikistan. I am its software developer — building the product and platform behind it.",
+          "Makon is my own product — a real estate platform in Tajikistan that I founded and continue to build.",
       },
     ],
   },
@@ -156,9 +157,9 @@ export const en = {
   about: {
     eyebrow: "About",
     title: "Shohrukh Jalolov",
-    lead: "Entrepreneur, business developer, and software developer based in Dushanbe, Tajikistan.",
+    lead: "Entrepreneur, business developer, and founder based in Dushanbe, Tajikistan.",
     paragraphs: [
-      "I work at the intersection of business development, startups, and software. Today that means leading business development at CifarX, co-founding Refresh, and building the software for Makon, a real estate project in Tajikistan.",
+      "I work at the intersection of business development, startups, and real estate. Today that means leading business development at CifarX, co-founding Refresh, and building my own product, Makon, a real estate platform in Tajikistan.",
       "I studied Computer Science and Mathematics at Lewis & Clark College in the United States, and finished high school at Dushanbe International School. That mix — rigorous technical training and a global education brought back home — shapes how I build: analytically, but always close to the market.",
       "I care about durable businesses over hype, about partnerships over transactions, and about the long, quiet work of helping a region produce companies that matter.",
     ],
@@ -188,7 +189,7 @@ export const en = {
   updatesPage: {
     eyebrow: "Weekly Updates",
     title: "Weekly Updates",
-    lead: "A running, public log — written most weeks — on building ventures, writing software, and the lessons in between.",
+    lead: "A running, public log — written most weeks — on building ventures and products, and the lessons in between.",
     readMore: "Read",
     empty: "The first weekly update is coming soon. Check back shortly.",
     backToList: "All updates",
@@ -211,11 +212,11 @@ export const en = {
     items: [
       {
         q: "Who is Shohrukh Jalolov?",
-        a: "Shohrukh Jalolov is an entrepreneur, business developer, and software developer based in Dushanbe, Tajikistan. He is Business Developer at CifarX, co-founder of Refresh, and the software developer of Makon, a real estate project.",
+        a: "Shohrukh Jalolov is an entrepreneur and business developer based in Dushanbe, Tajikistan. He leads business development at CifarX, co-founded Refresh, and is the founder of Makon, a real estate product.",
       },
       {
         q: "What companies is Shohrukh Jalolov involved in?",
-        a: "He leads business development at CifarX, co-founded the startup Refresh, and builds the software for Makon, a real estate project. He has also worked with SoftClub, LakLak, and Webmarker.",
+        a: "He leads business development at CifarX, co-founded the startup Refresh, and founded Makon, a real estate product. He has also worked with SoftClub, LakLak, Webmarket, and Flora Park.",
       },
       {
         q: "What is Shohrukh Jalolov's educational background?",
@@ -230,7 +231,7 @@ export const en = {
 
   footer: {
     tagline:
-      "Entrepreneur, business developer & software developer — Dushanbe, Tajikistan.",
+      "Entrepreneur, business developer & founder — Dushanbe, Tajikistan.",
     rights: "All rights reserved.",
     builtWith: "Built in Dushanbe.",
     nav: "Navigate",
