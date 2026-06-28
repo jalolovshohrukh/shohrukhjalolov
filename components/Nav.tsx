@@ -60,6 +60,7 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           type="button"
           aria-label="Menu"
           aria-expanded={open}
+          aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
           className="flex h-9 w-9 items-center justify-center text-ink md:hidden"
         >
@@ -67,11 +68,40 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </button>
       </nav>
 
-      {open && (
-        <div className="border-t border-line bg-bone md:hidden">
-          <ul className="mx-auto flex max-w-6xl flex-col px-6 py-2">
-            {links.map((l) => (
-              <li key={l.href}>
+      {/* Mobile menu — opens top → bottom, items stagger in */}
+      <div
+        id="mobile-menu"
+        aria-hidden={!open}
+        className={`overflow-hidden bg-bone transition-[max-height] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none md:hidden ${
+          open ? "max-h-[460px] border-t border-line" : "max-h-0"
+        }`}
+      >
+        <ul className="mx-auto flex max-w-6xl flex-col px-6 py-3">
+          {[...links, null].map((l, i) => {
+            const delay = open ? 120 + i * 55 : 0;
+            const itemCls = `transition-all duration-500 ease-out motion-reduce:transition-none ${
+              open
+                ? "translate-y-0 opacity-100"
+                : "pointer-events-none -translate-y-2 opacity-0"
+            }`;
+
+            if (l === null) {
+              return (
+                <li
+                  key="locale"
+                  style={{ transitionDelay: `${delay}ms` }}
+                  className={`py-3 ${itemCls}`}
+                >
+                  <LocaleSwitcher locale={locale} />
+                </li>
+              );
+            }
+            return (
+              <li
+                key={l.href}
+                style={{ transitionDelay: `${delay}ms` }}
+                className={itemCls}
+              >
                 <Link
                   href={l.href}
                   onClick={() => setOpen(false)}
@@ -82,13 +112,10 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                   {l.label}
                 </Link>
               </li>
-            ))}
-            <li className="py-3">
-              <LocaleSwitcher locale={locale} />
-            </li>
-          </ul>
-        </div>
-      )}
+            );
+          })}
+        </ul>
+      </div>
     </header>
   );
 }
