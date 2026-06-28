@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 
 import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata, faqSchema } from "@/lib/seo";
 import { getAllPosts } from "@/lib/posts";
-import { photos } from "@/lib/images";
 import { Reveal } from "@/components/Reveal";
 import { Cta } from "@/components/Cta";
 import { StatRow } from "@/components/StatRow";
-import { ImagePanel } from "@/components/ImagePanel";
 import { VentureCard } from "@/components/VentureCard";
-import { FeaturedUpdate } from "@/components/FeaturedUpdate";
 import { UpdateCard } from "@/components/UpdateCard";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
@@ -30,24 +26,21 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   });
 }
 
-const PILLAR_PHOTOS = [photos.build, photos.advise, photos.realEstate];
-
 export default async function HomePage({ params }: Params) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const loc: Locale = locale;
   const dict = getDictionary(loc);
   const base = `/${loc}`;
-  const posts = getAllPosts(loc);
-  const [featured, ...rest] = posts;
+  const posts = getAllPosts(loc).slice(0, 3);
 
   return (
     <>
       <JsonLd data={faqSchema(loc)} />
 
-      {/* Hero — statement + meta row */}
-      <section>
-        <div className="mx-auto max-w-6xl px-6 pb-12 pt-16 md:pt-20">
+      {/* Hero — pure typography */}
+      <section className="border-b border-line">
+        <div className="mx-auto max-w-6xl px-6 pb-16 pt-16 md:pb-24 md:pt-24">
           <Reveal>
             <p className="eyebrow">{dict.hero.eyebrow}</p>
             <h1 className="display mt-6 max-w-5xl text-[length:var(--text-display)] text-ink">
@@ -56,7 +49,7 @@ export default async function HomePage({ params }: Params) {
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="mt-10 grid gap-8 border-t border-line pt-8 md:grid-cols-[1fr_auto] md:items-center">
+            <div className="mt-12 grid gap-8 border-t border-line pt-8 md:grid-cols-[1fr_auto] md:items-center">
               <p className="max-w-2xl text-lg leading-relaxed text-ink-soft">
                 {dict.hero.lead}
               </p>
@@ -68,22 +61,19 @@ export default async function HomePage({ params }: Params) {
               </div>
             </div>
           </Reveal>
-        </div>
 
-        {/* Full-bleed hero image with translucent wordmark */}
-        <div className="relative h-[62vh] min-h-[420px] w-full overflow-hidden">
-          <Image
-            src={photos.hero.src}
-            alt={photos.hero.alt}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-ink/20" />
-          <span className="display pointer-events-none absolute inset-0 flex items-center justify-center px-4 text-center text-[clamp(2rem,9vw,7rem)] leading-none text-white/25">
-            Shohrukh Jalolov
-          </span>
+          <Reveal delay={200}>
+            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2">
+              {dict.hero.tags.map((t) => (
+                <span
+                  key={t}
+                  className="font-mono text-xs uppercase tracking-[0.18em] text-ink-faint"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -99,30 +89,62 @@ export default async function HomePage({ params }: Params) {
         </div>
       </section>
 
-      {/* Focus / disciplines — image panels */}
+      {/* Focus — typographic numbered blocks */}
       <section className="border-t border-line">
-        <div className="mx-auto max-w-6xl px-6 pt-16 md:pt-20">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
           <Reveal>
             <p className="eyebrow">{dict.focus.eyebrow}</p>
             <h2 className="display mt-4 max-w-3xl text-[length:var(--text-h1)] text-ink">
               {dict.focus.title}
             </h2>
           </Reveal>
+          <div className="mt-12 border-t border-line">
+            {dict.focus.pillars.map((p, i) => (
+              <Reveal key={i} delay={i * 70}>
+                <div className="grid gap-4 border-b border-line py-9 md:grid-cols-[auto_1fr] md:gap-12 md:py-12">
+                  <span className="font-display text-5xl font-bold text-ink-faint md:text-7xl">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-2xl font-semibold uppercase tracking-tight text-ink md:text-3xl">
+                      {p.title}
+                    </h3>
+                    <p className="mt-3 max-w-2xl text-ink-soft">{p.body}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
-        <div className="mt-12 flex flex-col gap-6">
-          {dict.focus.pillars.map((p, i) => (
-            <Reveal key={i}>
-              <ImagePanel
-                photo={PILLAR_PHOTOS[i]}
-                title={p.title}
-                label={String(i + 1).padStart(2, "0")}
-                index={`0${i + 1} / 03`}
-              />
-              <div className="mx-auto max-w-6xl px-6 pt-5">
-                <p className="max-w-2xl text-ink-soft">{p.body}</p>
-              </div>
-            </Reveal>
-          ))}
+      </section>
+
+      {/* Companies I have worked with */}
+      <section className="border-t border-line bg-paper">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+          <Reveal>
+            <span className="pill">{dict.clients.label}</span>
+            <div className="mt-10 grid grid-cols-1 divide-y divide-line border-y border-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              {dict.clients.items.map((c) => {
+                const cls =
+                  "flex items-center justify-center py-12 font-display text-3xl font-semibold tracking-tight text-ink transition-colors md:text-4xl";
+                return c.url ? (
+                  <a
+                    key={c.name}
+                    href={c.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${cls} hover:text-accent`}
+                  >
+                    {c.name}
+                  </a>
+                ) : (
+                  <div key={c.name} className={cls}>
+                    {c.name}
+                  </div>
+                );
+              })}
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -178,10 +200,10 @@ export default async function HomePage({ params }: Params) {
         </div>
       </section>
 
-      {/* Weekly updates — journal */}
-      {featured && (
+      {/* Weekly updates — list */}
+      {posts.length > 0 && (
         <section className="border-t border-line">
-          <div className="mx-auto max-w-6xl px-6 pt-16 md:pt-20">
+          <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
             <Reveal>
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
@@ -195,29 +217,18 @@ export default async function HomePage({ params }: Params) {
                 </Cta>
               </div>
             </Reveal>
-          </div>
-
-          <Reveal className="mt-10">
-            <FeaturedUpdate
-              post={featured}
-              locale={loc}
-              label={dict.updatesTeaser.eyebrow}
-              readLabel={dict.updatesPage.readMore}
-            />
-          </Reveal>
-
-          {rest.length > 0 && (
-            <div className="mx-auto max-w-6xl px-6 pb-4">
-              {rest.slice(0, 2).map((post) => (
-                <UpdateCard
-                  key={post.slug}
-                  post={post}
-                  locale={loc}
-                  readLabel={dict.updatesPage.readMore}
-                />
+            <div className="mt-10">
+              {posts.map((post, i) => (
+                <Reveal key={post.slug} delay={i * 60}>
+                  <UpdateCard
+                    post={post}
+                    locale={loc}
+                    readLabel={dict.updatesPage.readMore}
+                  />
+                </Reveal>
               ))}
             </div>
-          )}
+          </div>
         </section>
       )}
 
@@ -235,26 +246,20 @@ export default async function HomePage({ params }: Params) {
         </div>
       </section>
 
-      {/* Contact CTA — full-bleed */}
-      <section className="relative h-[56vh] min-h-[380px] w-full overflow-hidden border-t border-line">
-        <Image
-          src={photos.contact.src}
-          alt={photos.contact.alt}
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-ink/55" />
-        <div className="absolute inset-0 mx-auto flex max-w-6xl flex-col justify-center px-6">
-          <h2 className="display max-w-2xl text-[length:var(--text-h1)] text-white">
-            {dict.contact.title}
-          </h2>
-          <p className="mt-4 max-w-md text-white/80">{dict.contact.lead}</p>
-          <div className="mt-8">
-            <Cta href={`${base}/contact`} variant="onDark">
-              {dict.contact.ctaEmail}
-            </Cta>
-          </div>
+      {/* Contact CTA — charcoal band */}
+      <section className="border-t border-line bg-ink text-bone">
+        <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+          <Reveal>
+            <h2 className="display max-w-3xl text-[length:var(--text-h1)] text-bone">
+              {dict.contact.title}
+            </h2>
+            <p className="mt-4 max-w-md text-bone/70">{dict.contact.lead}</p>
+            <div className="mt-8">
+              <Cta href={`${base}/contact`} variant="onDark">
+                {dict.contact.ctaEmail}
+              </Cta>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

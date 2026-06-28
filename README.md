@@ -7,8 +7,7 @@ by AI answer engines), not just classic search.
 - **Stack:** Next.js 16 (App Router) · TypeScript · Tailwind CSS v4
 - **Content:** Markdown files (no CMS, no login)
 - **Fonts:** General Sans (display, self-hosted in `public/fonts`) · Onest (carries Cyrillic for Russian) · JetBrains Mono (labels)
-- **Design:** Halston-inspired — warm greige canvas, charcoal ink, a single deep-aubergine accent, big uppercase display type, and full-bleed warm photography
-- **Photography:** placeholder Unsplash images in `lib/images.ts` — swap each `src` for real photos anytime
+- **Design:** Halston-inspired, fully typographic (no photography) — warm greige canvas, charcoal ink, a single deep-aubergine accent, big uppercase display type, hairline rules, and a charcoal/maroon section rhythm
 
 ## Develop
 
@@ -79,10 +78,7 @@ Edit the dictionaries (`lib/dictionaries/en.ts` and `ru.ts`):
 
 - [ ] Real estate venture — replace the `realestate` item's name / link / blurb.
 - [ ] Any specifics of your own early-stage startup.
-
-Swap placeholder photography in `lib/images.ts`:
-
-- [ ] Replace each `src` (hero, build, advise, realEstate, journal, contact) with your own photos.
+- [ ] Confirm the "Companies I have worked with" list and add LakLak's URL if it has a site.
 
 ## Deploy (Vercel)
 

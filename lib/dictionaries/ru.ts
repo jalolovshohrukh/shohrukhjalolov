@@ -59,6 +59,16 @@ export const ru: Dictionary = {
     lead: "Я предприниматель и бизнес-девелопер из Душанбе, Таджикистан. Веду бизнес-развитие в CifarX, сооснователь Refresh, советник SoftClub и Webmarker, развиваю проект в сфере недвижимости.",
     ctaWork: "Смотреть проекты",
     ctaContact: "Связаться",
+    tags: ["Бизнес-развитие", "Стартапы", "Консалтинг", "Недвижимость"],
+  },
+
+  clients: {
+    label: "Компании, с которыми я работал",
+    items: [
+      { name: "SoftClub", url: siteConfig.ventureLinks.softclub },
+      { name: "LakLak", url: "" },
+      { name: "Webmarker", url: siteConfig.ventureLinks.webmarker },
+    ],
   },
 
   ventures: {

@@ -63,6 +63,16 @@ export const en = {
     lead: "I am an entrepreneur and business developer based in Dushanbe, Tajikistan. I lead business development at CifarX, co-founded Refresh, advise SoftClub and Webmarker, and develop a real estate project at home.",
     ctaWork: "See the work",
     ctaContact: "Get in touch",
+    tags: ["Business development", "Startups", "Advisory", "Real estate"],
+  },
+
+  clients: {
+    label: "Companies I have worked with",
+    items: [
+      { name: "SoftClub", url: siteConfig.ventureLinks.softclub },
+      { name: "LakLak", url: "" },
+      { name: "Webmarker", url: siteConfig.ventureLinks.webmarker },
+    ],
   },
 
   ventures: {
