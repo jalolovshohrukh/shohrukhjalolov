@@ -1,6 +1,6 @@
 # Shohrukh Jalolov
 
-> Shohrukh Jalolov is an entrepreneur, business developer, and advisor based in Dushanbe, Tajikistan. He is Business Developer at CifarX, co-founder of the startup Refresh, and an advisor to SoftClub and Webmarker. He is also developing a real estate project in Tajikistan.
+> Shohrukh Jalolov is an entrepreneur, business developer, and software developer based in Dushanbe, Tajikistan. He is Business Developer at CifarX, co-founder of the startup Refresh, and the software developer of Makon, a real estate project. He has also worked with SoftClub, LakLak, and Webmarker.
 
 ## Facts
 
@@ -11,9 +11,11 @@
 - Roles:
   - Business Developer at CifarX (https://cifarx.com)
   - Co-founder of Refresh (https://refresh.tj)
-  - Advisor at SoftClub (https://softclub.tj)
-  - Advisor at Webmarker (https://webmarker.tj)
-  - Founder of a real estate project in Tajikistan
+  - Software Developer of Makon, a real estate project in Tajikistan
+- Companies he has worked with:
+  - SoftClub (https://softclub.tj)
+  - LakLak
+  - Webmarker (https://webmarker.tj)
 - Education:
   - B.A. in Computer Science and Mathematics, Lewis & Clark College (Portland, Oregon, USA)
   - High school, Dushanbe International School (Dushanbe, Tajikistan)
@@ -39,7 +41,6 @@ Russian-language versions of every page are available under /ru.
 ## Summary
 
 Shohrukh Jalolov works at the intersection of business development, startups, and
-real estate. He builds and operates companies, advises founders on growth and
-go-to-market, and invests in real estate in Tajikistan. He writes weekly public
-updates about his work and is focused on helping build the technology ecosystem of
-Central Asia.
+software. He leads business development at CifarX, co-founded Refresh, and builds the
+software for Makon, a real estate project. He writes weekly public updates about his
+work and is focused on helping build the technology ecosystem of Central Asia.

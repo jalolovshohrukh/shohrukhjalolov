@@ -160,11 +160,7 @@ export default async function HomePage({ params }: Params) {
           </Reveal>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {dict.ventures.items.map((item, i) => (
-              <Reveal
-                key={item.id}
-                delay={i * 60}
-                className={`h-full ${i === 0 ? "md:col-span-2" : ""}`}
-              >
+              <Reveal key={item.id} delay={i * 60} className="h-full">
                 <VentureCard
                   item={item}
                   index={String(i + 1).padStart(2, "0")}

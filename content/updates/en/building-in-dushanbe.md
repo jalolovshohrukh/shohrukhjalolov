@@ -12,7 +12,7 @@ Most of my week went to **business development at CifarX** — partnership conve
 
 ## Founders
 
-Two long calls with founders I advise. One at **SoftClub**, one earlier-stage. Different problems, same root: distribution beats product more often than founders want to believe. A great product that no one can find loses to a good product everyone trips over.
+Two long calls with founders building here in the region. Different problems, same root: distribution beats product more often than founders want to believe. A great product that no one can find loses to a good product everyone trips over.
 
 > Build something people want, then do the unglamorous work of making sure they can find it.
 

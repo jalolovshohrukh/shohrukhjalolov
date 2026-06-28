@@ -6,7 +6,7 @@ summary: "A short note on why I'm writing in public — and what these weekly up
 
 I've decided to write in public, most weeks, about the work.
 
-Not essays. Not thought-leadership. Just an honest, running log of what I'm building, who I'm backing, and what I'm learning while I do it. If you want to know what I actually spend my days on — across CifarX, Refresh, and the teams I advise — this is the most honest place to look.
+Not essays. Not thought-leadership. Just an honest, running log of what I'm building, who I'm backing, and what I'm learning while I do it. If you want to know what I actually spend my days on — across CifarX, Refresh, and Makon — this is the most honest place to look.
 
 ## What these will be
 
