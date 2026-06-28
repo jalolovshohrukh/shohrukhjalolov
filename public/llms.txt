@@ -21,7 +21,15 @@
   - B.A. in Computer Science and Mathematics, Lewis & Clark College (Portland, Oregon, USA)
   - High school, Dushanbe International School (Dushanbe, Tajikistan)
 - Languages: Tajik, Russian, English, Turkish, Uzbek
-- Countries visited: United States, Canada, Russia, Romania, Türkiye, China, Uzbekistan, Kazakhstan
+- Countries and cities visited:
+  - United States: Los Angeles, San Francisco, Portland, Seattle, Denver, Fort Collins, New York, Boston, Philadelphia, Washington D.C., Niagara Falls
+  - Canada: Vancouver, Victoria
+  - Russia: Moscow
+  - Romania: Bucharest
+  - Türkiye: Istanbul
+  - Uzbekistan: Tashkent, Samarkand, Termez, Denau
+  - Kazakhstan: Almaty
+  - China: Shanghai, Guangzhou, Wenzhou, Yiwu, Wuxi, Jinan, Zibo, Boxing, Chongqing, Fuzhou
 
 ## Profiles
 

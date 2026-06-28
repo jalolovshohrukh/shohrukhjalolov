@@ -89,7 +89,7 @@ export const en = {
   places: {
     eyebrow: "Around the world",
     title: "Where I've been",
-    caption: "Eight countries and counting — a snapshot of where the work and curiosity have taken me.",
+    caption: "Eight countries and dozens of cities — a snapshot of where the work and curiosity have taken me.",
     home: "Home",
     visited: "Visited",
   },

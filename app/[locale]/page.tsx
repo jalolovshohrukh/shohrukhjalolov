@@ -12,7 +12,7 @@ import { UpdateCard } from "@/components/UpdateCard";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { WorldMap, MAP_VISITED } from "@/components/WorldMap";
-import { places } from "@/lib/places";
+import { visited } from "@/lib/places";
 
 type Params = { params: Promise<{ locale: string }> };
 
@@ -132,20 +132,28 @@ export default async function HomePage({ params }: Params) {
               </span>
             </div>
 
-            {/* Place list (also feeds search/GEO) */}
-            <ul className="mt-8 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-3 md:grid-cols-4">
-              {places.map((p) => (
-                <li key={p.countryEn} className="flex items-baseline gap-2">
-                  <span
-                    className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
-                    style={{ background: p.home ? "var(--color-accent)" : MAP_VISITED }}
-                  />
-                  <span className="text-sm text-ink">
-                    {loc === "ru" ? p.cityRu : p.cityEn}
-                    <span className="text-ink-faint">
-                      , {loc === "ru" ? p.countryRu : p.countryEn}
+            {/* Place list grouped by country (also feeds search/GEO) */}
+            <ul className="mt-8 grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+              {visited.map((country) => (
+                <li key={country.en}>
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{
+                        background: country.home
+                          ? "var(--color-accent)"
+                          : MAP_VISITED,
+                      }}
+                    />
+                    <span className="font-mono text-xs uppercase tracking-[0.15em] text-ink">
+                      {loc === "ru" ? country.ru : country.en}
                     </span>
-                  </span>
+                  </div>
+                  <p className="mt-1.5 pl-4 text-sm leading-relaxed text-ink-soft">
+                    {country.cities
+                      .map((c) => (loc === "ru" ? c.ru : c.en))
+                      .join(", ")}
+                  </p>
                 </li>
               ))}
             </ul>
