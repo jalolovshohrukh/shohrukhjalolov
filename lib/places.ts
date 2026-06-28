@@ -9,6 +9,7 @@ export type City = {
   lat: number;
   lng: number;
   tz: string;
+  home?: boolean;
 };
 export type Country = {
   en: string;
@@ -33,7 +34,7 @@ export const visited: Country[] = [
       { en: "Los Angeles", ru: "Лос-Анджелес", lat: 34.05, lng: -118.24, tz: "America/Los_Angeles" },
       { en: "San Francisco", ru: "Сан-Франциско", lat: 37.77, lng: -122.42, tz: "America/Los_Angeles" },
       { en: "San Jose", ru: "Сан-Хосе", lat: 37.34, lng: -121.89, tz: "America/Los_Angeles" },
-      { en: "Portland", ru: "Портленд", lat: 45.52, lng: -122.68, tz: "America/Los_Angeles" },
+      { en: "Portland", ru: "Портленд", lat: 45.52, lng: -122.68, tz: "America/Los_Angeles", home: true },
       { en: "Salem", ru: "Сейлем", lat: 44.94, lng: -123.04, tz: "America/Los_Angeles" },
       { en: "Seattle", ru: "Сиэтл", lat: 47.61, lng: -122.33, tz: "America/Los_Angeles" },
       { en: "Salt Lake City", ru: "Солт-Лейк-Сити", lat: 40.76, lng: -111.89, tz: "America/Denver" },

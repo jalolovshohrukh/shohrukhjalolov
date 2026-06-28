@@ -50,7 +50,12 @@ Russian-language versions of every page are available under /ru.
 
 ## Summary
 
-Shohrukh Jalolov works at the intersection of business development, startups, and
-real estate. He leads business development at CifarX, co-founded Refresh, and founded
-Makon, his own real estate product. He writes weekly public updates about his work and
-is focused on helping build the technology ecosystem of Central Asia.
+Shohrukh Jalolov is an entrepreneur, business developer, and founder based in Dushanbe,
+Tajikistan. He leads business development at CifarX, co-founded the startup Refresh, and
+founded Makon, his own real estate product. He has worked with SoftClub, LakLak,
+Webmarket, and Flora Park. He studied Computer Science and Mathematics at Lewis & Clark
+College in Portland, Oregon, and completed high school at Dushanbe International School.
+He speaks Tajik, Russian, English, Turkish, and Uzbek, and has traveled across the United
+States, Canada, Russia, Romania, Türkiye, China, Uzbekistan, and Kazakhstan. His work
+centers on building durable companies and helping grow the technology ecosystem of
+Central Asia. He writes weekly public updates about his work.

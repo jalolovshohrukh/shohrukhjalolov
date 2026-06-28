@@ -1,6 +1,6 @@
 import DottedMap from "dotted-map";
 import { visited } from "@/lib/places";
-import type { Locale } from "@/lib/i18n";
+import { getDictionary, type Locale } from "@/lib/i18n";
 import { WorldMapMarkers, type Marker } from "@/components/WorldMapMarkers";
 
 export const MAP_HOME = "#583939"; // home (aubergine)
@@ -34,11 +34,13 @@ export function WorldMap({ locale }: { locale: Locale }) {
           tz: c.tz,
           x: pin.x,
           y: pin.y,
-          home: Boolean(country.home),
+          home: Boolean(country.home || c.home),
         },
       ];
     }),
   );
+
+  const dict = getDictionary(locale);
 
   return (
     <div className="relative">
@@ -51,6 +53,7 @@ export function WorldMap({ locale }: { locale: Locale }) {
         markers={markers}
         homeColor={MAP_HOME}
         visitedColor={MAP_VISITED}
+        homeLabel={dict.places.myHome}
       />
     </div>
   );

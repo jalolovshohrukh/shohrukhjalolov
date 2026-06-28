@@ -16,11 +16,13 @@ export function WorldMapMarkers({
   markers,
   homeColor,
   visitedColor,
+  homeLabel,
 }: {
   viewBox: string;
   markers: Marker[];
   homeColor: string;
   visitedColor: string;
+  homeLabel: string;
 }) {
   const [active, setActive] = useState<number | null>(null);
   const [now, setNow] = useState<Date>(() => new Date());
@@ -83,7 +85,7 @@ export function WorldMapMarkers({
             {m.name}
           </div>
           <div className="mt-0.5 font-mono text-[0.7rem] text-ink-soft">
-            {timeIn(m.tz)} · {m.country}
+            {timeIn(m.tz)} · {m.home ? homeLabel : m.country}
           </div>
         </div>
       )}

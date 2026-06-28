@@ -67,7 +67,16 @@ export function personSchema(locale: Locale) {
     url: pageUrl(locale),
     email: `mailto:${siteConfig.email}`,
     jobTitle: "Business Developer",
-    description: dict.meta.home.description,
+    description: dict.bioLong,
+    disambiguatingDescription: dict.meta.home.description,
+    knowsAbout: [
+      "Business development",
+      "Startups",
+      "Real estate",
+      "Entrepreneurship",
+      "Central Asia technology ecosystem",
+    ],
+    nationality: { "@type": "Country", name: "Tajikistan" },
     worksFor: { "@type": "Organization", name: "CifarX", url: siteConfig.ventureLinks.cifarx },
     alumniOf: educationFacts.map((e) => ({
       "@type": "EducationalOrganization",
