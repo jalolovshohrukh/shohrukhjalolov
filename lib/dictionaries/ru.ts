@@ -115,6 +115,16 @@ export const ru: Dictionary = {
     ],
   },
 
+  stats: {
+    eyebrow: "Коротко",
+    items: [
+      { value: "04+", label: "Проекты и консультации" },
+      { value: "02", label: "Консультационные роли" },
+      { value: "EN · RU", label: "Работаю на двух языках" },
+      { value: "TJ", label: "База — Душанбе" },
+    ],
+  },
+
   focus: {
     eyebrow: "Как я работаю",
     title: "Три вещи, которые я делаю хорошо",

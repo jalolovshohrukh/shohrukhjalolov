@@ -55,7 +55,7 @@ export default async function ContactPage({ params }: Params) {
         <div className="mx-auto max-w-6xl px-6 pb-12 pt-20 md:pt-28">
           <Reveal>
             <p className="eyebrow">{dict.contact.eyebrow}</p>
-            <h1 className="mt-6 text-[length:var(--text-h1)] text-ink">
+            <h1 className="display mt-6 text-[length:var(--text-h1)] text-ink">
               {dict.contact.title}
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
@@ -73,7 +73,7 @@ export default async function ContactPage({ params }: Params) {
               <p className="eyebrow">{dict.contact.emailLabel}</p>
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="mt-3 inline-flex items-center gap-2 font-serif text-2xl text-ink transition-colors hover:text-accent md:text-3xl"
+                className="mt-3 inline-flex items-center gap-2 font-display text-2xl text-ink transition-colors hover:text-accent md:text-3xl"
               >
                 <EnvelopeSimple size={24} className="text-accent" />
                 {siteConfig.email}
@@ -86,7 +86,7 @@ export default async function ContactPage({ params }: Params) {
                 {dict.contact.office}
               </p>
             </div>
-            <Cta href={`mailto:${siteConfig.email}`} external arrow={false}>
+            <Cta href={`mailto:${siteConfig.email}`} external>
               {dict.contact.ctaEmail}
             </Cta>
           </Reveal>

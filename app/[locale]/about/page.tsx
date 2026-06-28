@@ -41,7 +41,7 @@ export default async function AboutPage({ params }: Params) {
         <div className="mx-auto max-w-6xl px-6 pb-16 pt-20 md:pt-28">
           <Reveal>
             <p className="eyebrow">{dict.about.eyebrow}</p>
-            <h1 className="mt-6 text-[length:var(--text-h1)] text-ink">
+            <h1 className="display mt-6 text-[length:var(--text-h1)] text-ink">
               {dict.about.title}
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
@@ -82,7 +82,7 @@ export default async function AboutPage({ params }: Params) {
               <Reveal key={i} delay={i * 80}>
                 <div className="flex flex-col gap-1 border-b border-line py-6 md:flex-row md:items-baseline md:justify-between md:gap-8">
                   <div>
-                    <h3 className="font-serif text-xl text-ink">
+                    <h3 className="font-display text-xl text-ink">
                       {e.institution}
                     </h3>
                     <p className="mt-1 text-sm text-ink-soft">{e.degree}</p>
@@ -100,7 +100,7 @@ export default async function AboutPage({ params }: Params) {
           <Reveal>
             <div className="flex flex-wrap items-center gap-3">
               <Cta href={`${base}/work`}>{dict.hero.ctaWork}</Cta>
-              <Cta href={`${base}/contact`} variant="ghost" arrow={false}>
+              <Cta href={`${base}/contact`} variant="ghost">
                 {dict.hero.ctaContact}
               </Cta>
             </div>

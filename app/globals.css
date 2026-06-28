@@ -1,39 +1,36 @@
 @import "tailwindcss";
 
 /*
-  Minimalist editorial design system — warm monochrome + a single restrained
-  forest accent. Follows the installed `minimalist-ui` taste skill:
-  off-black ink (never pure #000), ultra-light warm borders, no heavy shadows,
-  one accent, invisible-sophistication motion.
+  Halston-inspired design system — warm greige canvas, charcoal ink, a single
+  deep-aubergine accent, and General Sans (Latin) + Onest (Cyrillic) grotesk.
+  Big uppercase display type, letter-spaced micro-labels, bordered "+" buttons,
+  full-bleed warm photography.
 */
 
 @theme {
   /* Surfaces */
-  --color-bone: #f7f6f3; /* warm canvas */
-  --color-paper: #ffffff; /* cards / raised surfaces */
-  --color-ink: #16130f; /* warm near-black text */
-  --color-ink-soft: #57514c; /* muted body text */
-  --color-ink-faint: #8a847d; /* captions / meta */
-  --color-line: #e7e3dc; /* hairline borders */
-  --color-line-soft: rgba(22, 19, 15, 0.06);
+  --color-bone: #e8e5e0; /* warm greige canvas */
+  --color-paper: #f1efeb; /* raised surfaces / cards */
+  --color-ink: #1c1815; /* charcoal text */
+  --color-ink-soft: #645d55; /* muted body */
+  --color-ink-faint: #978f85; /* captions / meta */
+  --color-line: #d4cfc6; /* hairline borders */
+  --color-line-soft: rgba(28, 24, 21, 0.08);
 
-  /* Single accent: deep forest (approved "forest" rotation, not AI-purple) */
-  --color-accent: #34503f;
-  --color-accent-ink: #243a2d;
-  --color-accent-soft: #eaf0ea;
+  /* Single accent: deep aubergine (used as dark section bands + small marks) */
+  --color-accent: #583939;
+  --color-accent-ink: #3f2829;
+  --color-accent-soft: #ece2df;
 
-  /* Spot pastels for rare highlights (used sparingly on tags) */
-  --color-clay: #f3ece5;
-
-  /* Type — all three carry full Cyrillic for the Russian locale */
-  --font-serif: var(--font-lora), Georgia, "Times New Roman", serif;
-  --font-sans: var(--font-manrope), system-ui, -apple-system, sans-serif;
+  /* Type — General Sans (Latin) with Onest carrying Cyrillic for Russian */
+  --font-sans: var(--font-general), var(--font-onest), system-ui, sans-serif;
+  --font-display: var(--font-general), var(--font-onest), system-ui, sans-serif;
   --font-mono: var(--font-jbmono), ui-monospace, monospace;
 
-  /* Editorial fluid scale */
-  --text-display: clamp(2.75rem, 6vw, 5rem);
-  --text-h1: clamp(2.25rem, 4.5vw, 3.5rem);
-  --text-h2: clamp(1.75rem, 3vw, 2.5rem);
+  /* Display scale (big, tight) */
+  --text-display: clamp(2.75rem, 7vw, 6rem);
+  --text-h1: clamp(2.25rem, 5vw, 4rem);
+  --text-h2: clamp(1.6rem, 3.2vw, 2.6rem);
 }
 
 :root {
@@ -59,34 +56,72 @@
     color: #fff;
   }
 
-  h1, h2, h3 {
-    font-family: var(--font-serif);
-    line-height: 1.08;
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.04;
     letter-spacing: -0.02em;
-    font-weight: 400;
+  }
+}
+
+@layer components {
+  /* Big uppercase display headline (the Halston signature) */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    line-height: 0.95;
   }
 
-  /* Eyebrow / mono labels */
+  /* Inline mono micro-label */
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--color-ink-faint);
   }
 
-  a {
-    text-underline-offset: 3px;
+  /* Bordered pill micro-label, e.g. ACHIEVEMENTS */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--color-line);
+    border-radius: 9999px;
+    padding: 0.4rem 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+  .pill::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 9999px;
+    background: var(--color-accent);
+  }
+
+  /* Centered uppercase title overlaid on imagery */
+  .overlay-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #fff;
   }
 }
 
-/* Reveal-on-scroll: invisible-sophistication motion */
+/* Reveal-on-scroll */
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(16px);
   transition:
-    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
@@ -128,6 +163,7 @@
 .prose a {
   color: var(--color-accent);
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .prose strong {
   color: var(--color-ink);
@@ -136,7 +172,6 @@
 .prose blockquote {
   border-left: 2px solid var(--color-accent);
   padding-left: 1.25rem;
-  font-family: var(--font-serif);
   font-style: italic;
   color: var(--color-ink);
 }
@@ -156,7 +191,7 @@
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.9em;
-  background: var(--color-clay);
+  background: var(--color-accent-soft);
   padding: 0.1em 0.35em;
   border-radius: 4px;
 }

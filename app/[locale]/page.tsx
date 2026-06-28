@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata, faqSchema } from "@/lib/seo";
 import { getAllPosts } from "@/lib/posts";
+import { photos } from "@/lib/images";
 import { Reveal } from "@/components/Reveal";
 import { Cta } from "@/components/Cta";
+import { StatRow } from "@/components/StatRow";
+import { ImagePanel } from "@/components/ImagePanel";
 import { VentureCard } from "@/components/VentureCard";
+import { FeaturedUpdate } from "@/components/FeaturedUpdate";
 import { UpdateCard } from "@/components/UpdateCard";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
@@ -25,93 +30,124 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   });
 }
 
+const PILLAR_PHOTOS = [photos.build, photos.advise, photos.realEstate];
+
 export default async function HomePage({ params }: Params) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const loc: Locale = locale;
   const dict = getDictionary(loc);
   const base = `/${loc}`;
-  const posts = getAllPosts(loc).slice(0, 3);
+  const posts = getAllPosts(loc);
+  const [featured, ...rest] = posts;
 
   return (
     <>
       <JsonLd data={faqSchema(loc)} />
 
-      {/* Hero */}
+      {/* Hero — statement + meta row */}
       <section>
-        <div className="mx-auto max-w-6xl px-6 pb-20 pt-20 md:pb-28 md:pt-28">
+        <div className="mx-auto max-w-6xl px-6 pb-12 pt-16 md:pt-20">
           <Reveal>
             <p className="eyebrow">{dict.hero.eyebrow}</p>
-          </Reveal>
-          <Reveal delay={70}>
-            <h1 className="mt-6 max-w-4xl text-[length:var(--text-display)] text-ink">
-              {dict.hero.headlineA}{" "}
-              <span className="italic text-accent-ink">{dict.hero.headlineB}</span>
+            <h1 className="display mt-6 max-w-5xl text-[length:var(--text-display)] text-ink">
+              {dict.hero.headlineA} {dict.hero.headlineB}
             </h1>
           </Reveal>
-          <Reveal delay={140}>
-            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-soft">
-              {dict.hero.lead}
-            </p>
+
+          <Reveal delay={120}>
+            <div className="mt-10 grid gap-8 border-t border-line pt-8 md:grid-cols-[1fr_auto] md:items-center">
+              <p className="max-w-2xl text-lg leading-relaxed text-ink-soft">
+                {dict.hero.lead}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Cta href={`${base}/work`}>{dict.hero.ctaWork}</Cta>
+                <Cta href={`${base}/contact`} variant="ghost">
+                  {dict.hero.ctaContact}
+                </Cta>
+              </div>
+            </div>
           </Reveal>
-          <Reveal delay={210}>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Cta href={`${base}/work`}>{dict.hero.ctaWork}</Cta>
-              <Cta href={`${base}/contact`} variant="ghost" arrow={false}>
-                {dict.hero.ctaContact}
-              </Cta>
+        </div>
+
+        {/* Full-bleed hero image with translucent wordmark */}
+        <div className="relative h-[62vh] min-h-[420px] w-full overflow-hidden">
+          <Image
+            src={photos.hero.src}
+            alt={photos.hero.alt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-ink/20" />
+          <span className="display pointer-events-none absolute inset-0 flex items-center justify-center px-4 text-center text-[clamp(2rem,9vw,7rem)] leading-none text-white/25">
+            Shohrukh Jalolov
+          </span>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="border-t border-line bg-paper">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+          <Reveal>
+            <span className="pill">{dict.stats.eyebrow}</span>
+            <div className="mt-10">
+              <StatRow stats={dict.stats.items} />
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* Focus — three pillars as editorial columns (not boxed cards) */}
-      <section className="border-t border-line bg-paper">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+      {/* Focus / disciplines — image panels */}
+      <section className="border-t border-line">
+        <div className="mx-auto max-w-6xl px-6 pt-16 md:pt-20">
           <Reveal>
             <p className="eyebrow">{dict.focus.eyebrow}</p>
-            <h2 className="mt-4 max-w-2xl text-[length:var(--text-h2)] text-ink">
+            <h2 className="display mt-4 max-w-3xl text-[length:var(--text-h1)] text-ink">
               {dict.focus.title}
             </h2>
           </Reveal>
-          <div className="mt-14 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-3">
-            {dict.focus.pillars.map((p, i) => (
-              <Reveal
-                key={i}
-                delay={i * 90}
-                className="flex flex-col bg-paper p-8"
-              >
-                <span className="font-mono text-sm text-accent">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-5 font-serif text-xl text-ink">{p.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-                  {p.body}
-                </p>
-              </Reveal>
-            ))}
-          </div>
+        </div>
+        <div className="mt-12 flex flex-col gap-6">
+          {dict.focus.pillars.map((p, i) => (
+            <Reveal key={i}>
+              <ImagePanel
+                photo={PILLAR_PHOTOS[i]}
+                title={p.title}
+                label={String(i + 1).padStart(2, "0")}
+                index={`0${i + 1} / 03`}
+              />
+              <div className="mx-auto max-w-6xl px-6 pt-5">
+                <p className="max-w-2xl text-ink-soft">{p.body}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      {/* Ventures — bento (first card spans 2 cols, fills exactly) */}
+      {/* Ventures */}
       <section className="border-t border-line">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <Reveal>
             <p className="eyebrow">{dict.ventures.eyebrow}</p>
-            <h2 className="mt-4 max-w-2xl text-[length:var(--text-h2)] text-ink">
+            <h2 className="display mt-4 max-w-3xl text-[length:var(--text-h1)] text-ink">
               {dict.ventures.title}
             </h2>
-            <p className="mt-4 max-w-xl text-ink-soft">{dict.ventures.lead}</p>
+            <p className="mt-5 max-w-xl text-ink-soft">{dict.ventures.lead}</p>
           </Reveal>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {dict.ventures.items.map((item, i) => (
               <Reveal
                 key={item.id}
-                delay={i * 70}
+                delay={i * 60}
                 className={`h-full ${i === 0 ? "md:col-span-2" : ""}`}
               >
-                <VentureCard item={item} visitLabel={dict.ventures.visit} />
+                <VentureCard
+                  item={item}
+                  index={String(i + 1).padStart(2, "0")}
+                  visitLabel={dict.ventures.visit}
+                />
               </Reveal>
             ))}
           </div>
@@ -123,16 +159,18 @@ export default async function HomePage({ params }: Params) {
         </div>
       </section>
 
-      {/* Vision teaser — quiet accent band with pullquote */}
-      <section className="border-t border-line bg-accent-soft">
+      {/* Vision band — deep aubergine */}
+      <section className="border-t border-accent-ink bg-accent text-bone">
         <div className="mx-auto max-w-4xl px-6 py-24 text-center md:py-32">
           <Reveal>
-            <p className="eyebrow">{dict.vision.eyebrow}</p>
-            <blockquote className="mx-auto mt-8 max-w-3xl font-serif text-3xl italic leading-tight text-accent-ink md:text-4xl">
+            <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-bone/60">
+              {dict.vision.eyebrow}
+            </p>
+            <blockquote className="mx-auto mt-8 max-w-3xl font-display text-3xl font-medium leading-tight text-bone md:text-4xl">
               “{dict.vision.pullquote}”
             </blockquote>
             <div className="mt-10 flex justify-center">
-              <Cta href={`${base}/vision`} variant="ghost">
+              <Cta href={`${base}/vision`} variant="onDark">
                 {dict.nav.vision}
               </Cta>
             </div>
@@ -140,51 +178,54 @@ export default async function HomePage({ params }: Params) {
         </div>
       </section>
 
-      {/* Weekly updates teaser */}
-      <section className="border-t border-line">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
-          <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <p className="eyebrow">{dict.updatesTeaser.eyebrow}</p>
-                <h2 className="mt-4 text-[length:var(--text-h2)] text-ink">
-                  {dict.updatesTeaser.title}
-                </h2>
-                <p className="mt-4 max-w-xl text-ink-soft">
-                  {dict.updatesTeaser.lead}
-                </p>
+      {/* Weekly updates — journal */}
+      {featured && (
+        <section className="border-t border-line">
+          <div className="mx-auto max-w-6xl px-6 pt-16 md:pt-20">
+            <Reveal>
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <p className="eyebrow">{dict.updatesTeaser.eyebrow}</p>
+                  <h2 className="display mt-4 text-[length:var(--text-h1)] text-ink">
+                    {dict.updatesTeaser.title}
+                  </h2>
+                </div>
+                <Cta href={`${base}/updates`} variant="ghost">
+                  {dict.updatesTeaser.viewAll}
+                </Cta>
               </div>
-              <Cta href={`${base}/updates`} variant="ghost">
-                {dict.updatesTeaser.viewAll}
-              </Cta>
-            </div>
+            </Reveal>
+          </div>
+
+          <Reveal className="mt-10">
+            <FeaturedUpdate
+              post={featured}
+              locale={loc}
+              label={dict.updatesTeaser.eyebrow}
+              readLabel={dict.updatesPage.readMore}
+            />
           </Reveal>
 
-          <div className="mt-12">
-            {posts.length === 0 ? (
-              <p className="border-t border-line pt-8 text-ink-soft">
-                {dict.updatesTeaser.empty}
-              </p>
-            ) : (
-              posts.map((post, i) => (
-                <Reveal key={post.slug} delay={i * 60}>
-                  <UpdateCard
-                    post={post}
-                    locale={loc}
-                    readLabel={dict.updatesPage.readMore}
-                  />
-                </Reveal>
-              ))
-            )}
-          </div>
-        </div>
-      </section>
+          {rest.length > 0 && (
+            <div className="mx-auto max-w-6xl px-6 pb-4">
+              {rest.slice(0, 2).map((post) => (
+                <UpdateCard
+                  key={post.slug}
+                  post={post}
+                  locale={loc}
+                  readLabel={dict.updatesPage.readMore}
+                />
+              ))}
+            </div>
+          )}
+        </section>
+      )}
 
-      {/* FAQ — GEO surface, mirrors FAQPage schema */}
+      {/* FAQ — GEO */}
       <section className="border-t border-line bg-paper">
-        <div className="mx-auto max-w-3xl px-6 py-20 md:py-24">
+        <div className="mx-auto max-w-3xl px-6 py-16 md:py-20">
           <Reveal>
-            <h2 className="text-[length:var(--text-h2)] text-ink">
+            <h2 className="display text-[length:var(--text-h2)] text-ink">
               {dict.faq.title}
             </h2>
             <div className="mt-10">
@@ -194,17 +235,26 @@ export default async function HomePage({ params }: Params) {
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section className="border-t border-line">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <Reveal>
-            <div className="flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
-              <h2 className="max-w-xl text-[length:var(--text-h2)] text-ink">
-                {dict.contact.title}
-              </h2>
-              <Cta href={`${base}/contact`}>{dict.contact.ctaEmail}</Cta>
-            </div>
-          </Reveal>
+      {/* Contact CTA — full-bleed */}
+      <section className="relative h-[56vh] min-h-[380px] w-full overflow-hidden border-t border-line">
+        <Image
+          src={photos.contact.src}
+          alt={photos.contact.alt}
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-ink/55" />
+        <div className="absolute inset-0 mx-auto flex max-w-6xl flex-col justify-center px-6">
+          <h2 className="display max-w-2xl text-[length:var(--text-h1)] text-white">
+            {dict.contact.title}
+          </h2>
+          <p className="mt-4 max-w-md text-white/80">{dict.contact.lead}</p>
+          <div className="mt-8">
+            <Cta href={`${base}/contact`} variant="onDark">
+              {dict.contact.ctaEmail}
+            </Cta>
+          </div>
         </div>
       </section>
     </>

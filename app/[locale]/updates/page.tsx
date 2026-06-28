@@ -42,7 +42,7 @@ export default async function UpdatesPage({ params }: Params) {
         <div className="mx-auto max-w-4xl px-6 pb-10 pt-20 md:pt-28">
           <Reveal>
             <p className="eyebrow">{dict.updatesPage.eyebrow}</p>
-            <h1 className="mt-6 text-[length:var(--text-h1)] text-ink">
+            <h1 className="display mt-6 text-[length:var(--text-h1)] text-ink">
               {dict.updatesPage.title}
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">

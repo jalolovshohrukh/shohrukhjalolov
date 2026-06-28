@@ -120,6 +120,16 @@ export const en = {
     ],
   },
 
+  stats: {
+    eyebrow: "At a glance",
+    items: [
+      { value: "04+", label: "Ventures & advisory roles" },
+      { value: "02", label: "Advisory seats" },
+      { value: "EN · RU", label: "Working bilingually" },
+      { value: "TJ", label: "Based in Dushanbe" },
+    ],
+  },
+
   focus: {
     eyebrow: "How I work",
     title: "Three things I do well",

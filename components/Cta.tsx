@@ -1,37 +1,40 @@
 import Link from "next/link";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { Plus } from "@phosphor-icons/react/dist/ssr";
 import type { ReactNode } from "react";
 
 type Props = {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "ghost";
+  variant?: "primary" | "ghost" | "onDark";
   external?: boolean;
-  arrow?: boolean;
+  icon?: boolean;
 };
 
+/** Halston-style button: rectangular, uppercase, letter-spaced, with a "+". */
 export function Cta({
   href,
   children,
   variant = "primary",
   external = false,
-  arrow = true,
+  icon = true,
 }: Props) {
   const base =
-    "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md px-5 py-3 text-sm font-medium transition-all duration-200 active:scale-[0.98]";
+    "group inline-flex items-center justify-between gap-6 whitespace-nowrap border px-5 py-3 font-mono text-xs uppercase tracking-[0.15em] transition-colors duration-200";
   const look =
     variant === "primary"
-      ? "bg-ink text-bone hover:bg-accent-ink"
-      : "border border-line bg-paper text-ink hover:border-ink/25";
+      ? "border-ink bg-ink text-bone hover:bg-accent-ink hover:border-accent-ink"
+      : variant === "onDark"
+        ? "border-white/40 text-white hover:bg-white hover:text-ink"
+        : "border-line text-ink hover:border-ink";
   const cls = `${base} ${look}`;
 
   const inner = (
     <>
-      {children}
-      {arrow && (
-        <ArrowRight
-          size={15}
-          className="transition-transform duration-200 group-hover:translate-x-0.5"
+      <span>{children}</span>
+      {icon && (
+        <Plus
+          size={14}
+          className="transition-transform duration-300 group-hover:rotate-90"
         />
       )}
     </>

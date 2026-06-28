@@ -43,7 +43,7 @@ export default async function WorkPage({ params }: Params) {
         <div className="mx-auto max-w-6xl px-6 pb-12 pt-20 md:pt-28">
           <Reveal>
             <p className="eyebrow">{dict.ventures.eyebrow}</p>
-            <h1 className="mt-6 max-w-3xl text-[length:var(--text-h1)] text-ink">
+            <h1 className="display mt-6 max-w-3xl text-[length:var(--text-h1)] text-ink">
               {dict.ventures.title}
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
@@ -65,7 +65,7 @@ export default async function WorkPage({ params }: Params) {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
-                      <h2 className="font-serif text-2xl text-ink md:text-3xl">
+                      <h2 className="font-display text-2xl text-ink md:text-3xl">
                         {item.name}
                       </h2>
                       <p className="mt-1 text-sm font-medium text-accent">

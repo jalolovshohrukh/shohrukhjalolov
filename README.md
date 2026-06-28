@@ -6,8 +6,9 @@ by AI answer engines), not just classic search.
 
 - **Stack:** Next.js 16 (App Router) · TypeScript · Tailwind CSS v4
 - **Content:** Markdown files (no CMS, no login)
-- **Fonts:** Lora (serif) · Manrope (sans) · JetBrains Mono — all with Cyrillic
-- **Design:** minimalist editorial — warm bone canvas, single deep-forest accent
+- **Fonts:** General Sans (display, self-hosted in `public/fonts`) · Onest (carries Cyrillic for Russian) · JetBrains Mono (labels)
+- **Design:** Halston-inspired — warm greige canvas, charcoal ink, a single deep-aubergine accent, big uppercase display type, and full-bleed warm photography
+- **Photography:** placeholder Unsplash images in `lib/images.ts` — swap each `src` for real photos anytime
 
 ## Develop
 
@@ -78,6 +79,10 @@ Edit the dictionaries (`lib/dictionaries/en.ts` and `ru.ts`):
 
 - [ ] Real estate venture — replace the `realestate` item's name / link / blurb.
 - [ ] Any specifics of your own early-stage startup.
+
+Swap placeholder photography in `lib/images.ts`:
+
+- [ ] Replace each `src` (hero, build, advise, realEstate, journal, contact) with your own photos.
 
 ## Deploy (Vercel)
 

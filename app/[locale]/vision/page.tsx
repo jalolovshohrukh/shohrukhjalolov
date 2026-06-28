@@ -42,7 +42,7 @@ export default async function VisionPage({ params }: Params) {
           <div className="mx-auto max-w-3xl px-6 pb-12 pt-20 md:pt-28">
             <Reveal>
               <p className="eyebrow">{dict.vision.eyebrow}</p>
-              <h1 className="mt-6 text-[length:var(--text-h1)] text-ink">
+              <h1 className="display mt-6 text-[length:var(--text-h1)] text-ink">
                 {dict.vision.title}
               </h1>
             </Reveal>
@@ -64,7 +64,7 @@ export default async function VisionPage({ params }: Params) {
         <section>
           <div className="mx-auto max-w-3xl px-6 py-12">
             <Reveal>
-              <blockquote className="border-l-2 border-accent pl-6 font-serif text-2xl italic leading-snug text-accent-ink md:text-3xl">
+              <blockquote className="border-l-2 border-accent pl-6 font-display text-2xl italic leading-snug text-accent-ink md:text-3xl">
                 “{dict.vision.pullquote}”
               </blockquote>
             </Reveal>

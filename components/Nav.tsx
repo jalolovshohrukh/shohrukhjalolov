@@ -24,29 +24,28 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const isActive = (href: string, exact?: boolean) =>
     exact ? pathname === href : pathname.startsWith(href);
 
+  const linkCls = "font-mono text-xs uppercase tracking-[0.15em]";
+
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-bone/80 backdrop-blur-md">
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+    <header className="sticky top-0 z-50 border-b border-line bg-bone/85 backdrop-blur-md">
+      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:h-20">
         <Link
           href={base}
-          className="font-serif text-lg tracking-tight text-ink"
           onClick={() => setOpen(false)}
+          className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-ink"
         >
           Shohrukh Jalolov
         </Link>
 
-        {/* Desktop */}
         <div className="hidden items-center gap-7 md:flex">
-          <ul className="flex items-center gap-6 text-sm">
+          <ul className="flex items-center gap-6">
             {links.slice(1).map((l) => (
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className={
-                    isActive(l.href)
-                      ? "text-ink"
-                      : "text-ink-soft transition-colors hover:text-ink"
-                  }
+                  className={`${linkCls} ${
+                    isActive(l.href) ? "text-ink" : "text-ink-soft hover:text-ink"
+                  } transition-colors`}
                 >
                   {l.label}
                 </Link>
@@ -57,7 +56,6 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           <LocaleSwitcher locale={locale} />
         </div>
 
-        {/* Mobile toggle */}
         <button
           type="button"
           aria-label="Menu"
@@ -69,7 +67,6 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </button>
       </nav>
 
-      {/* Mobile menu */}
       {open && (
         <div className="border-t border-line bg-bone md:hidden">
           <ul className="mx-auto flex max-w-6xl flex-col px-6 py-2">
@@ -78,7 +75,7 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                 <Link
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className={`block py-3 text-base ${
+                  className={`block py-3 ${linkCls} ${
                     isActive(l.href, l.exact) ? "text-ink" : "text-ink-soft"
                   }`}
                 >

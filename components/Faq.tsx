@@ -12,7 +12,7 @@ export function Faq({ items }: { items: readonly Item[] }) {
       {items.map((item, i) => (
         <details key={i} className="group border-b border-line py-5">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-6">
-            <span className="font-serif text-lg text-ink md:text-xl">
+            <span className="font-display text-lg font-medium text-ink md:text-xl">
               {item.q}
             </span>
             <Plus

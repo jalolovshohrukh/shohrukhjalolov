@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Lora, Manrope, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { Onest, JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 
 import { locales, getDictionary, isLocale } from "@/lib/i18n";
@@ -10,15 +11,21 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 
-const lora = Lora({
-  variable: "--font-lora",
-  subsets: ["latin", "cyrillic"],
-  style: ["normal", "italic"],
+// General Sans (Fontshare) — self-hosted; carries the Halston Latin grotesk look.
+const generalSans = localFont({
+  variable: "--font-general",
   display: "swap",
+  src: [
+    { path: "../../public/fonts/general-sans-400.woff2", weight: "400", style: "normal" },
+    { path: "../../public/fonts/general-sans-500.woff2", weight: "500", style: "normal" },
+    { path: "../../public/fonts/general-sans-600.woff2", weight: "600", style: "normal" },
+    { path: "../../public/fonts/general-sans-700.woff2", weight: "700", style: "normal" },
+  ],
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+// Onest carries Cyrillic (General Sans has no Cyrillic) for the Russian locale.
+const onest = Onest({
+  variable: "--font-onest",
   subsets: ["latin", "cyrillic"],
   display: "swap",
 });
@@ -57,7 +64,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={dict.dir}
-      className={`${lora.variable} ${manrope.variable} ${jbMono.variable} h-full antialiased`}
+      className={`${generalSans.variable} ${onest.variable} ${jbMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <a
