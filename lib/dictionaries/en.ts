@@ -191,6 +191,16 @@ export const en = {
     ],
   },
 
+  college: {
+    eyebrow: "Alma mater",
+    wordmark: "Lewis & Clark College",
+    body: "Some of the best years of my life happened at Lewis & Clark College in Portland, Oregon. I lived, studied, and grew alongside extraordinary people from every corner of the world — and left with friendships that still shape me today.",
+    thanksLabel: "With thanks to",
+    thanksNames:
+      "Benjamin, Giulia, Ena, Kenneth, Buzurgmehr, Zafar, Nabil, Pablo, Kris",
+    thanksMore: "and many more great people.",
+  },
+
   updatesTeaser: {
     eyebrow: "Weekly Updates",
     title: "Notes from the work",

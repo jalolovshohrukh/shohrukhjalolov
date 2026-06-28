@@ -95,6 +95,34 @@ export default async function AboutPage({ params }: Params) {
         </div>
       </section>
 
+      {/* Lewis & Clark College tribute */}
+      <section className="border-t border-line">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+          <Reveal>
+            <p className="eyebrow">{dict.college.eyebrow}</p>
+            <p className="display mt-6 text-[clamp(2.25rem,8.5vw,6.5rem)] leading-[0.92] text-[#bdb6a9]">
+              {dict.college.wordmark}
+            </p>
+          </Reveal>
+          <Reveal delay={90}>
+            <div className="mt-12 grid gap-10 md:grid-cols-[1.7fr_1fr]">
+              <p className="max-w-2xl text-lg leading-relaxed text-ink-soft">
+                {dict.college.body}
+              </p>
+              <div>
+                <p className="eyebrow">{dict.college.thanksLabel}</p>
+                <p className="mt-3 leading-relaxed text-ink">
+                  {dict.college.thanksNames}{" "}
+                  <span className="text-ink-faint">
+                    {dict.college.thanksMore}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <section className="border-t border-line">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <Reveal>

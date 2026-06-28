@@ -184,6 +184,16 @@ export const ru: Dictionary = {
     ],
   },
 
+  college: {
+    eyebrow: "Альма-матер",
+    wordmark: "Lewis & Clark College",
+    body: "Одни из лучших лет моей жизни прошли в Lewis & Clark College в Портленде, штат Орегон. Я жил, учился и рос рядом с удивительными людьми со всех уголков мира — и ушёл оттуда с дружбой, которая формирует меня и сегодня.",
+    thanksLabel: "С благодарностью",
+    thanksNames:
+      "Benjamin, Giulia, Ena, Kenneth, Buzurgmehr, Zafar, Nabil, Pablo, Kris",
+    thanksMore: "и многим другим замечательным людям.",
+  },
+
   updatesTeaser: {
     eyebrow: "Еженедельные заметки",
     title: "Заметки из работы",
