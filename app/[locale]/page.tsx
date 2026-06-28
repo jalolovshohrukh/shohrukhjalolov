@@ -112,7 +112,7 @@ export default async function HomePage({ params }: Params) {
 
           <Reveal delay={80}>
             <div className="mt-12">
-              <WorldMap />
+              <WorldMap locale={loc} />
             </div>
           </Reveal>
 

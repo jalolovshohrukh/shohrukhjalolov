@@ -1,40 +1,57 @@
 import DottedMap from "dotted-map";
 import { visited } from "@/lib/places";
+import type { Locale } from "@/lib/i18n";
+import { WorldMapMarkers, type Marker } from "@/components/WorldMapMarkers";
 
 export const MAP_HOME = "#583939"; // home (aubergine)
 export const MAP_VISITED = "#2f8f57"; // visited (green)
 
 /**
- * Dotted world map (server-rendered SVG, zero client JS). Every visited city
- * is a green dot; home (Dushanbe) is an aubergine dot.
+ * Dotted world map. The base dots are a static server-rendered SVG; each
+ * visited city is an interactive marker overlaid at the same projection, so
+ * hovering shows the city name and its current local time.
  */
-export function WorldMap() {
+export function WorldMap({ locale }: { locale: Locale }) {
   const map = new DottedMap({ height: 52, grid: "diagonal" });
 
-  for (const country of visited) {
-    for (const c of country.cities) {
-      map.addPin({
-        lat: c.lat,
-        lng: c.lng,
-        svgOptions: {
-          color: country.home ? MAP_HOME : MAP_VISITED,
-          radius: 0.55,
-        },
-      });
-    }
-  }
-
-  const svg = map.getSVG({
+  // Base dots first (before getPin), so they carry no coloured pins.
+  const baseSvg = map.getSVG({
     radius: 0.3,
-    color: "#c2bbae", // base dots — muted greige
+    color: "#c2bbae",
     shape: "circle",
     backgroundColor: "transparent",
   });
+  const viewBox = baseSvg.match(/viewBox="([^"]+)"/)?.[1] ?? "0 0 103 52";
+
+  const markers: Marker[] = visited.flatMap((country) =>
+    country.cities.flatMap((c) => {
+      const pin = map.getPin({ lat: c.lat, lng: c.lng });
+      if (!pin) return [];
+      return [
+        {
+          name: locale === "ru" ? c.ru : c.en,
+          country: locale === "ru" ? country.ru : country.en,
+          tz: c.tz,
+          x: pin.x,
+          y: pin.y,
+          home: Boolean(country.home),
+        },
+      ];
+    }),
+  );
 
   return (
-    <div
-      className="[&>svg]:h-auto [&>svg]:w-full"
-      dangerouslySetInnerHTML={{ __html: svg }}
-    />
+    <div className="relative">
+      <div
+        className="[&>svg]:h-auto [&>svg]:w-full"
+        dangerouslySetInnerHTML={{ __html: baseSvg }}
+      />
+      <WorldMapMarkers
+        viewBox={viewBox}
+        markers={markers}
+        homeColor={MAP_HOME}
+        visitedColor={MAP_VISITED}
+      />
+    </div>
   );
 }
