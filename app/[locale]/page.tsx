@@ -11,6 +11,8 @@ import { VentureCard } from "@/components/VentureCard";
 import { UpdateCard } from "@/components/UpdateCard";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
+import { WorldMap, MAP_VISITED } from "@/components/WorldMap";
+import { places } from "@/lib/places";
 
 type Params = { params: Promise<{ locale: string }> };
 
@@ -93,6 +95,60 @@ export default async function HomePage({ params }: Params) {
             <div className="mt-10">
               <StatRow stats={dict.stats.items} />
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Where I've been — dotted world map */}
+      <section className="border-t border-line">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+          <Reveal>
+            <p className="eyebrow">{dict.places.eyebrow}</p>
+            <h2 className="display mt-4 text-[length:var(--text-h1)] text-ink">
+              {dict.places.title}
+            </h2>
+            <p className="mt-4 max-w-xl text-ink-soft">{dict.places.caption}</p>
+          </Reveal>
+
+          <Reveal delay={80}>
+            <div className="mt-12">
+              <WorldMap />
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            {/* Legend */}
+            <div className="mt-8 flex flex-wrap gap-6 font-mono text-xs uppercase tracking-[0.15em] text-ink-soft">
+              <span className="inline-flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-accent" />
+                {dict.places.home}
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <span
+                  className="h-2 w-2 rounded-full"
+                  style={{ background: MAP_VISITED }}
+                />
+                {dict.places.visited}
+              </span>
+            </div>
+
+            {/* Place list (also feeds search/GEO) */}
+            <ul className="mt-8 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-3 md:grid-cols-4">
+              {places.map((p) => (
+                <li key={p.countryEn} className="flex items-baseline gap-2">
+                  <span
+                    className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
+                    style={{ background: p.home ? "var(--color-accent)" : MAP_VISITED }}
+                  />
+                  <span className="text-sm text-ink">
+                    {loc === "ru" ? p.cityRu : p.cityEn}
+                    <span className="text-ink-faint">
+                      , {loc === "ru" ? p.countryRu : p.countryEn}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
           </Reveal>
         </div>
       </section>

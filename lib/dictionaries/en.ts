@@ -86,6 +86,14 @@ export const en = {
     ],
   },
 
+  places: {
+    eyebrow: "Around the world",
+    title: "Where I've been",
+    caption: "Eight countries and counting — a snapshot of where the work and curiosity have taken me.",
+    home: "Home",
+    visited: "Visited",
+  },
+
   focus: {
     eyebrow: "How I work",
     title: "Three things I do well",
