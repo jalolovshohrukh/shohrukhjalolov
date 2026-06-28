@@ -224,20 +224,28 @@ export const en = {
     title: "Frequently asked",
     items: [
       {
-        q: "Who is Shohrukh Jalolov?",
-        a: "Shohrukh Jalolov is an entrepreneur and business developer based in Dushanbe, Tajikistan. He leads business development at CifarX, co-founded Refresh, and is the founder of Makon, a real estate product.",
+        q: "What do you do?",
+        a: "I'm an entrepreneur and business developer based in Dushanbe, Tajikistan. I lead business development at CifarX, co-founded Refresh, and founded Makon, my own real estate product.",
       },
       {
-        q: "What companies is Shohrukh Jalolov involved in?",
-        a: "He leads business development at CifarX, co-founded the startup Refresh, and founded Makon, a real estate product. He has also worked with SoftClub, LakLak, Webmarket, and Flora Park.",
+        q: "What companies are you involved in?",
+        a: "I lead business development at CifarX, co-founded the startup Refresh, and founded Makon, a real estate product. I've also worked with SoftClub, LakLak, Webmarket, and Flora Park.",
       },
       {
-        q: "What is Shohrukh Jalolov's educational background?",
-        a: "He holds a B.A. in Computer Science and Mathematics from Lewis & Clark College in the United States, and completed high school at Dushanbe International School.",
+        q: "What's your background?",
+        a: "I studied Computer Science and Mathematics at Lewis & Clark College in the United States, and finished high school at Dushanbe International School.",
       },
       {
-        q: "Where is Shohrukh Jalolov based?",
-        a: "He is based in Dushanbe, Tajikistan, with an office at Regus, Buston City.",
+        q: "What languages do you speak?",
+        a: "Tajik, Russian, English, Turkish, and Uzbek.",
+      },
+      {
+        q: "Where are you based?",
+        a: "Dushanbe, Tajikistan, with an office at Regus, Buston City.",
+      },
+      {
+        q: "How can I reach you?",
+        a: "The fastest way is email — jalolovshohrukh@gmail.com. I'm also on Instagram, LinkedIn, and Facebook.",
       },
     ],
   },

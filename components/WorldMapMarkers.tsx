@@ -58,21 +58,34 @@ export function WorldMapMarkers({
         className="absolute inset-0 h-full w-full overflow-visible"
       >
         {markers.map((mk, i) => (
-          <circle
+          <g
             key={i}
-            cx={mk.x}
-            cy={mk.y}
-            r={active === i ? 1.2 : 0.8}
-            fill={mk.home ? homeColor : visitedColor}
             tabIndex={0}
             role="button"
             aria-label={mk.name}
-            className="cursor-pointer outline-none transition-[r] duration-200"
+            className="cursor-pointer outline-none"
             onMouseEnter={() => setActive(i)}
             onMouseLeave={() => setActive((p) => (p === i ? null : p))}
             onFocus={() => setActive(i)}
             onBlur={() => setActive((p) => (p === i ? null : p))}
-          />
+          >
+            {/* Generous invisible hit area */}
+            <circle
+              cx={mk.x}
+              cy={mk.y}
+              r={1.8}
+              fill="transparent"
+              style={{ pointerEvents: "all" }}
+            />
+            {/* Visible dot — same size as the base dots, grows on hover */}
+            <circle
+              cx={mk.x}
+              cy={mk.y}
+              r={active === i ? 0.75 : 0.34}
+              fill={mk.home ? homeColor : visitedColor}
+              className="pointer-events-none transition-[r] duration-200"
+            />
+          </g>
         ))}
       </svg>
 
