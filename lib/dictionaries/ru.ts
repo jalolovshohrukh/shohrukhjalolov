@@ -73,9 +73,9 @@ export const ru: Dictionary = {
     eyebrow: "В цифрах",
     items: [
       { value: "03", label: "Проекты и роли" },
-      { value: "04", label: "Компаний в работе" },
-      { value: "03", label: "Языка" },
-      { value: "02", label: "Страны — TJ и США" },
+      { value: "07", label: "Компаний в работе" },
+      { value: "05", label: "Языков" },
+      { value: "08", label: "Стран посетил" },
     ],
   },
 

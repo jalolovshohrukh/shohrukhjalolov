@@ -83,7 +83,7 @@ export function personSchema(locale: Locale) {
         addressCountry: "TJ",
       },
     },
-    knowsLanguage: ["en", "ru", "tg"],
+    knowsLanguage: ["tg", "ru", "en", "tr", "uz"],
     sameAs,
   };
 }

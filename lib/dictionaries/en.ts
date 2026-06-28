@@ -80,9 +80,9 @@ export const en = {
     eyebrow: "By the numbers",
     items: [
       { value: "03", label: "Ventures & roles" },
-      { value: "04", label: "Companies worked with" },
-      { value: "03", label: "Languages spoken" },
-      { value: "02", label: "Countries — TJ & USA" },
+      { value: "07", label: "Companies worked with" },
+      { value: "05", label: "Languages spoken" },
+      { value: "08", label: "Countries visited" },
     ],
   },
 
