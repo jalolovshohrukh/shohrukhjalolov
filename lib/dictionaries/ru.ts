@@ -70,12 +70,12 @@ export const ru: Dictionary = {
   },
 
   stats: {
-    eyebrow: "Коротко",
+    eyebrow: "В цифрах",
     items: [
-      { value: "03", label: "Компании и проекты" },
-      { value: "EN · RU", label: "Работаю на двух языках" },
-      { value: "TJ", label: "База — Душанбе" },
-      { value: "B.A.", label: "Информатика и математика" },
+      { value: "03", label: "Проекты и роли" },
+      { value: "04", label: "Компаний в работе" },
+      { value: "03", label: "Языка" },
+      { value: "02", label: "Страны — TJ и США" },
     ],
   },
 

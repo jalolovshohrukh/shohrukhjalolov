@@ -14,6 +14,14 @@ import { JsonLd } from "@/components/JsonLd";
 
 type Params = { params: Promise<{ locale: string }> };
 
+/** Per-company hover text colour for the "worked with" strip (text only). */
+const CLIENT_HOVER: Record<string, string> = {
+  SoftClub: "hover:text-[#5fa8dd]", // baby blue
+  LakLak: "hover:text-[#1f4e9b]", // darker blue
+  Webmarket: "hover:text-[#e06a1f]", // orange
+  "Flora Park": "hover:text-[#2f8f57]", // green
+};
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
@@ -127,13 +135,14 @@ export default async function HomePage({ params }: Params) {
               {dict.clients.items.map((c) => {
                 const cls =
                   "flex items-center justify-center bg-paper py-12 font-display text-2xl font-semibold tracking-tight text-ink transition-colors md:text-3xl";
+                const hover = CLIENT_HOVER[c.name] ?? "hover:text-accent";
                 return c.url ? (
                   <a
                     key={c.name}
                     href={c.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${cls} hover:text-accent`}
+                    className={`${cls} ${hover}`}
                   >
                     {c.name}
                   </a>

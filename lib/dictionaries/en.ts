@@ -77,12 +77,12 @@ export const en = {
   },
 
   stats: {
-    eyebrow: "At a glance",
+    eyebrow: "By the numbers",
     items: [
-      { value: "03", label: "Companies & ventures" },
-      { value: "EN · RU", label: "Working bilingually" },
-      { value: "TJ", label: "Based in Dushanbe" },
-      { value: "B.A.", label: "CS & Mathematics" },
+      { value: "03", label: "Ventures & roles" },
+      { value: "04", label: "Companies worked with" },
+      { value: "03", label: "Languages spoken" },
+      { value: "02", label: "Countries — TJ & USA" },
     ],
   },
 
