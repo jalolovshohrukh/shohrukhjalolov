@@ -69,11 +69,12 @@ export function WorldMapMarkers({
             onFocus={() => setActive(i)}
             onBlur={() => setActive((p) => (p === i ? null : p))}
           >
-            {/* Generous invisible hit area */}
+            {/* Invisible hit area — kept modest so dense clusters don't
+                steal each other's hovers */}
             <circle
               cx={mk.x}
               cy={mk.y}
-              r={1.8}
+              r={0.9}
               fill="transparent"
               style={{ pointerEvents: "all" }}
             />
