@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shohrukh Jalolov — Personal Website
 
-## Getting Started
+Bilingual (English / Russian) personal site for Shohrukh Jalolov — entrepreneur,
+business developer, and advisor. Built for strong **AI SEO / GEO** (discoverability
+by AI answer engines), not just classic search.
 
-First, run the development server:
+- **Stack:** Next.js 16 (App Router) · TypeScript · Tailwind CSS v4
+- **Content:** Markdown files (no CMS, no login)
+- **Fonts:** Lora (serif) · Manrope (sans) · JetBrains Mono — all with Cyrillic
+- **Design:** minimalist editorial — warm bone canvas, single deep-forest accent
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000  (redirects to /en)
+npm run build    # production build
+npm start        # serve the production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/
+  [locale]/            # en | ru — the locale layout is the root (<html lang>)
+    page.tsx           # Home
+    about | work | vision | contact / page.tsx
+    updates/           # Weekly Updates index + [slug] post template
+  sitemap.ts robots.ts opengraph-image.tsx
+content/updates/{en,ru}/*.md   # weekly update posts
+lib/                   # i18n, dictionaries, posts loader, SEO/structured-data
+components/            # Nav, Footer, cards, Reveal motion, JsonLd
+public/llms.txt        # machine-readable summary for AI crawlers
+proxy.ts               # locale redirect (Next 16 "proxy", was "middleware")
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Add a weekly update
 
-## Learn More
+Create the same-named file in **both** languages so the language switcher maps
+between them:
 
-To learn more about Next.js, take a look at the following resources:
+```
+content/updates/en/my-slug.md
+content/updates/ru/my-slug.md
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Frontmatter:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```md
+---
+title: "Your title"
+date: "2026-07-04"      # YYYY-MM-DD, controls ordering
+summary: "One-line summary shown in lists and meta description."
+---
 
-## Deploy on Vercel
+Markdown body…
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The post appears automatically at `/en/updates/my-slug` and in the index.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## AI SEO / GEO
+
+- `Person` / `Organization` / `WebSite` / `FAQPage` / `BlogPosting` / `BreadcrumbList`
+  JSON-LD (see `lib/seo.ts`) — including a `sameAs` entity graph.
+- Per-page metadata with canonical + `hreflang` (en/ru/x-default), OpenGraph + Twitter.
+- `robots.txt` explicitly allows AI crawlers; `sitemap.xml` carries hreflang;
+  `public/llms.txt` gives a clean factual summary.
+- Copy is written "quotable-first" so AI engines can cite self-contained sentences.
+
+## Before deploy — fill these in
+
+Edit `lib/siteConfig.ts`:
+
+- [ ] `url` → the final production domain (currently `https://shohrukhjalolov.com`).
+- [ ] Confirm exact **LinkedIn** and **Facebook** profile URLs.
+
+Edit the dictionaries (`lib/dictionaries/en.ts` and `ru.ts`):
+
+- [ ] Real estate venture — replace the `realestate` item's name / link / blurb.
+- [ ] Any specifics of your own early-stage startup.
+
+## Deploy (Vercel)
+
+1. Push to GitHub.
+2. Import the repo at vercel.com → it auto-detects Next.js.
+3. Add your custom domain and update `siteConfig.url` to match.
