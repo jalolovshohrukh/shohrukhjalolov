@@ -1,6 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  fetchCurrentWeather,
+  WEATHER_EMOJI,
+  type WeatherKey,
+} from "@/lib/weather";
 
 export type Marker = {
   name: string;
@@ -8,7 +13,15 @@ export type Marker = {
   tz: string;
   x: number;
   y: number;
+  lat: number;
+  lng: number;
   home: boolean;
+};
+
+type WeatherState = {
+  status: "loading" | "ok" | "error";
+  tempC?: number;
+  key?: WeatherKey;
 };
 
 export function WorldMapMarkers({
@@ -17,21 +30,57 @@ export function WorldMapMarkers({
   homeColor,
   visitedColor,
   homeLabel,
+  weatherLabels,
 }: {
   viewBox: string;
   markers: Marker[];
   homeColor: string;
   visitedColor: string;
   homeLabel: string;
+  weatherLabels: Record<WeatherKey, string>;
 }) {
   const [active, setActive] = useState<number | null>(null);
   const [now, setNow] = useState<Date>(() => new Date());
+  const [weather, setWeather] = useState<Record<number, WeatherState>>({});
+  const controllers = useRef<Map<number, AbortController>>(new Map());
 
   // Keep the displayed local time fresh while the page is open.
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 30_000);
     return () => clearInterval(id);
   }, []);
+
+  // Abort any in-flight weather requests on unmount.
+  useEffect(() => {
+    const map = controllers.current;
+    return () => map.forEach((c) => c.abort());
+  }, []);
+
+  // Fetch (once, then cache) the current weather for a hovered/focused city.
+  // Guard on the controllers ref so a given city is only ever requested once,
+  // even under React's development double-invocation.
+  const loadWeather = (i: number) => {
+    if (controllers.current.has(i)) return;
+    const controller = new AbortController();
+    controllers.current.set(i, controller);
+    setWeather((p) => ({ ...p, [i]: { status: "loading" } }));
+    fetchCurrentWeather(markers[i].lat, markers[i].lng, controller.signal)
+      .then((w) =>
+        setWeather((p) => ({
+          ...p,
+          [i]: { status: "ok", tempC: w.tempC, key: w.key },
+        })),
+      )
+      .catch((err) => {
+        if (err?.name === "AbortError") return;
+        setWeather((p) => ({ ...p, [i]: { status: "error" } }));
+      });
+  };
+
+  const activate = (i: number) => {
+    setActive(i);
+    loadWeather(i);
+  };
 
   const [, , vbW, vbH] = viewBox.split(" ").map(Number);
 
@@ -49,6 +98,7 @@ export function WorldMapMarkers({
   };
 
   const m = active !== null ? markers[active] : null;
+  const w = active !== null ? weather[active] : undefined;
 
   return (
     <>
@@ -64,9 +114,9 @@ export function WorldMapMarkers({
             role="button"
             aria-label={mk.name}
             className="cursor-pointer outline-none"
-            onMouseEnter={() => setActive(i)}
+            onMouseEnter={() => activate(i)}
             onMouseLeave={() => setActive((p) => (p === i ? null : p))}
-            onFocus={() => setActive(i)}
+            onFocus={() => activate(i)}
             onBlur={() => setActive((p) => (p === i ? null : p))}
           >
             {/* Invisible hit area — kept modest so dense clusters don't
@@ -101,6 +151,11 @@ export function WorldMapMarkers({
           <div className="mt-0.5 font-mono text-[0.7rem] text-ink-soft">
             {timeIn(m.tz)} · {m.home ? homeLabel : m.country}
           </div>
+          {w?.status === "ok" && w.key !== undefined && w.tempC !== undefined && (
+            <div className="mt-0.5 font-mono text-[0.7rem] text-ink-soft">
+              {WEATHER_EMOJI[w.key]} {Math.round(w.tempC)}° · {weatherLabels[w.key]}
+            </div>
+          )}
         </div>
       )}
     </>

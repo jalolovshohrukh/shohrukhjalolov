@@ -50,6 +50,8 @@ export const ru: Dictionary = {
     vision: "Видение",
     updates: "Заметки",
     contact: "Контакты",
+    menu: "Меню",
+    close: "Закрыть",
   },
 
   hero: {
@@ -90,6 +92,16 @@ export const ru: Dictionary = {
     home: "Дом",
     visited: "Побывал",
     myHome: "Мой дом",
+    weather: {
+      clear: "Ясно",
+      cloudy: "Облачно",
+      fog: "Туман",
+      drizzle: "Морось",
+      rain: "Дождь",
+      snow: "Снег",
+      showers: "Ливень",
+      thunder: "Гроза",
+    },
   },
 
   focus: {

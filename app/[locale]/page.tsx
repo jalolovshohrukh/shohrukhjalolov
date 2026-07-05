@@ -166,9 +166,13 @@ export default async function HomePage({ params }: Params) {
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <Reveal>
             <p className="eyebrow">{dict.college.eyebrow}</p>
-            <p className="display mt-6 text-[clamp(2.25rem,8.5vw,6.5rem)] leading-[0.92] text-[#bdb6a9]">
-              {dict.college.wordmark}
-            </p>
+            {/* Official Lewis & Clark College logo — the mark already includes
+                the name, so it stands in for the wordmark here. */}
+            <img
+              src="/lewis-clark-logo.svg"
+              alt="Lewis & Clark College"
+              className="mt-6 h-24 w-auto md:h-32"
+            />
           </Reveal>
           <Reveal delay={90}>
             <div className="mt-12 grid gap-10 md:grid-cols-[1.7fr_1fr]">

@@ -57,6 +57,8 @@ export const en = {
     vision: "Vision",
     updates: "Updates",
     contact: "Contact",
+    menu: "Menu",
+    close: "Close",
   },
 
   hero: {
@@ -97,6 +99,16 @@ export const en = {
     home: "Home",
     visited: "Visited",
     myHome: "My Home",
+    weather: {
+      clear: "Clear",
+      cloudy: "Cloudy",
+      fog: "Fog",
+      drizzle: "Drizzle",
+      rain: "Rain",
+      snow: "Snow",
+      showers: "Showers",
+      thunder: "Thunderstorm",
+    },
   },
 
   focus: {
