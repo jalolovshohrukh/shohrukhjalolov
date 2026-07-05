@@ -139,7 +139,10 @@ export const en = {
       "Over the long run I want to help build an ecosystem where talented people in the region can start ambitious companies, find opportunity close to home, and compete on a global stage. Every company I help develop and every product I build is a step toward that.",
     ],
     pullquote:
-      "Build companies that earn their keep. Build products people actually use. Be patient about the rest.",
+      "Whoever learns nothing from the passing of time will learn from no teacher.",
+    pullquoteOriginal:
+      "Ҳар кӣ н-омӯхт аз гузашти рӯзгор, ҳеҷ н-омӯзад зи ҳеҷ омӯзгор.",
+    pullquoteSource: "Rudaki",
     cta: "Read the weekly updates",
   },
 
@@ -267,7 +270,7 @@ export const en = {
       },
       {
         q: "How can I reach you?",
-        a: "The fastest way is email — jalolovshohrukh@gmail.com. I'm also on Instagram, LinkedIn, and Facebook.",
+        a: "The fastest way is email — use the “Email me” button on the contact page. I'm also on Instagram, LinkedIn, and Facebook.",
       },
     ],
   },

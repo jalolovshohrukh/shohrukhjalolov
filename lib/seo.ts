@@ -65,7 +65,6 @@ export function personSchema(locale: Locale) {
     "@id": `${siteConfig.url}/#person`,
     name: siteConfig.name,
     url: pageUrl(locale),
-    email: `mailto:${siteConfig.email}`,
     jobTitle: "Business Developer",
     description: dict.bioLong,
     disambiguatingDescription: dict.meta.home.description,

@@ -7,13 +7,14 @@ import {
   LinkedinLogo,
   FacebookLogo,
   ArrowUpRight,
+  Plus,
 } from "@phosphor-icons/react/dist/ssr";
 
 import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata, breadcrumbSchema } from "@/lib/seo";
 import { siteConfig } from "@/lib/siteConfig";
 import { Reveal } from "@/components/Reveal";
-import { Cta } from "@/components/Cta";
+import { EmailMe } from "@/components/EmailMe";
 import { JsonLd } from "@/components/JsonLd";
 
 type Params = { params: Promise<{ locale: string }> };
@@ -71,13 +72,10 @@ export default async function ContactPage({ params }: Params) {
           <Reveal className="space-y-10">
             <div>
               <p className="eyebrow">{dict.contact.emailLabel}</p>
-              <a
-                href={`mailto:${siteConfig.email}`}
-                className="mt-3 inline-flex items-center gap-2 font-display text-2xl text-ink transition-colors hover:text-accent md:text-3xl"
-              >
+              <EmailMe className="mt-3 inline-flex cursor-pointer items-center gap-2 font-display text-2xl text-ink transition-colors hover:text-accent md:text-3xl">
                 <EnvelopeSimple size={24} className="text-accent" />
-                {siteConfig.email}
-              </a>
+                {dict.contact.ctaEmail}
+              </EmailMe>
             </div>
             <div>
               <p className="eyebrow">{dict.contact.officeLabel}</p>
@@ -86,9 +84,13 @@ export default async function ContactPage({ params }: Params) {
                 {dict.contact.office}
               </p>
             </div>
-            <Cta href={`mailto:${siteConfig.email}`} external>
-              {dict.contact.ctaEmail}
-            </Cta>
+            <EmailMe className="group inline-flex cursor-pointer items-center justify-between gap-6 whitespace-nowrap border border-ink bg-ink px-5 py-3 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-200 hover:border-accent-ink hover:bg-accent-ink">
+              <span>{dict.contact.ctaEmail}</span>
+              <Plus
+                size={14}
+                className="transition-transform duration-300 group-hover:rotate-90"
+              />
+            </EmailMe>
           </Reveal>
 
           {/* Socials */}

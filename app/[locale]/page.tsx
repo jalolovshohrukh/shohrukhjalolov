@@ -292,6 +292,12 @@ export default async function HomePage({ params }: Params) {
             <blockquote className="mx-auto mt-8 max-w-3xl font-display text-3xl font-medium leading-tight text-bone md:text-4xl">
               “{dict.vision.pullquote}”
             </blockquote>
+            <p className="mx-auto mt-6 max-w-2xl font-display text-lg leading-snug text-bone/70 md:text-xl">
+              {dict.vision.pullquoteOriginal}
+            </p>
+            <p className="mt-4 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-bone/60">
+              — {dict.vision.pullquoteSource}
+            </p>
             <div className="mt-10 flex justify-center">
               <Cta href={`${base}/vision`} variant="onDark">
                 {dict.nav.vision}

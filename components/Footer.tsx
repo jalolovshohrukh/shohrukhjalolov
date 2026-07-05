@@ -6,6 +6,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { siteConfig } from "@/lib/siteConfig";
 import type { Locale, Dictionary } from "@/lib/i18n";
+import { EmailMe } from "@/components/EmailMe";
 
 export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const base = `/${locale}`;
@@ -51,12 +52,9 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
           <div>
             <p className={label}>{dict.contact.emailLabel}</p>
-            <a
-              href={`mailto:${siteConfig.email}`}
-              className="mt-3 block text-sm text-ink transition-colors hover:text-accent"
-            >
-              {siteConfig.email}
-            </a>
+            <EmailMe className="mt-3 block cursor-pointer text-left text-sm text-ink transition-colors hover:text-accent">
+              {dict.contact.ctaEmail}
+            </EmailMe>
           </div>
 
           <div>
