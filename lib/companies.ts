@@ -1,7 +1,7 @@
 import type { Dictionary } from "@/lib/i18n";
 
-/** A typeset logo: lowercase name plus a coloured square full stop. */
-export type Mark = { text: string; dot: string };
+/** A typeset logo: the name as the brand writes it, optionally with a coloured square full stop. */
+export type Mark = { text: string; dot?: string };
 
 export type Company = { name: string; url: string; hoverClass: string; mark?: Mark };
 
@@ -16,9 +16,10 @@ const HOVER_CLASS: Record<string, string> = {
   Webmarket: "hover:text-[#e06a1f]", // orange
 };
 
-/** Companies whose logo is close enough to set in type (Spendly: "spendly" + blue square). */
+/** Companies whose logo is close enough to set in type. */
 const MARKS: Record<string, Mark> = {
-  Spendly: { text: "spendly", dot: "#3d8eff" },
+  Spendly: { text: "spendly", dot: "#3d8eff" }, // lowercase + blue square
+  Exabyte: { text: "exabyte" }, // lowercase wordmark
 };
 
 /** Every company on the site — own ventures first, then those worked with. */

@@ -75,7 +75,7 @@ export default async function UpdatePostPage({ params }: Params) {
             </Link>
 
             <p className="mt-12 caps text-ink-faint">
-              {dict.updatesPage.published} · {formatDate(post.date, loc)}
+              {dict.updatesPage.published} {formatDate(post.date, loc)}
             </p>
             <h1 className="display mt-5 text-[length:var(--text-h1)]">{post.title}</h1>
             {post.summary && (

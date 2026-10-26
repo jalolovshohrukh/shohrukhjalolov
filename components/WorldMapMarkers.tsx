@@ -24,12 +24,12 @@ const WEATHER_ICON: Record<WeatherKey, Icon> = {
   thunder: CloudLightning,
 };
 
-function WeatherLine({ Glyph, text }: { Glyph: Icon; text: string }) {
+function Weather({ Glyph, text }: { Glyph: Icon; text: string }) {
   return (
-    <div className="mt-1 flex items-center justify-center gap-1.5 text-xs tabular-nums text-ink-soft">
+    <span className="inline-flex items-center gap-1.5">
       <Glyph size={13} weight="fill" className="text-accent" />
       {text}
-    </div>
+    </span>
   );
 }
 
@@ -174,15 +174,18 @@ export function WorldMapMarkers({
           <div className="text-sm font-semibold leading-tight text-ink">
             {m.name}
           </div>
-          <div className="mt-0.5 text-xs tabular-nums text-ink-soft">
-            {timeIn(m.tz)} · {m.home ? homeLabel : m.country}
+          <div className="mt-0.5 text-xs text-ink-soft">
+            {m.home ? homeLabel : m.country}
           </div>
-          {w?.status === "ok" && w.key !== undefined && w.tempC !== undefined && (
-            <WeatherLine
-              Glyph={WEATHER_ICON[w.key]}
-              text={`${Math.round(w.tempC)}° · ${weatherLabels[w.key]}`}
-            />
-          )}
+          <div className="mt-1 flex items-center justify-center gap-3 text-xs tabular-nums text-ink-soft">
+            <span>{timeIn(m.tz)}</span>
+            {w?.status === "ok" && w.key !== undefined && w.tempC !== undefined && (
+              <Weather
+                Glyph={WEATHER_ICON[w.key]}
+                text={`${Math.round(w.tempC)}° ${weatherLabels[w.key]}`}
+              />
+            )}
+          </div>
         </div>
       )}
     </>

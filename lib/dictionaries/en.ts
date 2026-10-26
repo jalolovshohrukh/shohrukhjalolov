@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/siteConfig";
  * Facts: Shohrukh is an entrepreneur and business developer — Business
  * Developer at CifarX, co-founder of Refresh, and founder of Makon (his own
  * real estate product) and Spendly (his own app for accounts and ledgers). He
- * has worked with SoftClub, LakLak, Webmarket, and Asia Print. He is NOT a software developer / advisor / investor.
+ * has worked with SoftClub, LakLak, Webmarket, Asia Print, and Exabyte. He is NOT a software developer / advisor / investor.
  */
 export const en = {
   langName: "English",
@@ -15,7 +15,7 @@ export const en = {
 
   // Longer bio for structured data / AI search only — not rendered on the page.
   bioLong:
-    "Shohrukh Jalolov is an entrepreneur, business developer, and founder based in Dushanbe, Tajikistan. He leads business development at CifarX, co-founded the startup Refresh, and founded two products of his own: Makon, a real estate product, and Spendly, an app for accounts, ledgers and transactions. He has worked with SoftClub, LakLak, Webmarket, and Asia Print. He studied Computer Science and Mathematics at Lewis & Clark College in Portland, Oregon, and completed high school at Dushanbe International School. He speaks Tajik, Russian, English, Turkish, and Uzbek, and has traveled across the United States, Canada, Russia, Romania, Türkiye, China, Uzbekistan, and Kazakhstan. His work centers on building durable companies and helping grow the technology ecosystem of Central Asia.",
+    "Shohrukh Jalolov is an entrepreneur, business developer, and founder based in Dushanbe, Tajikistan. He leads business development at CifarX, co-founded the startup Refresh, and founded two products of his own: Makon, a real estate product, and Spendly, an app for accounts, ledgers and transactions. He has worked with SoftClub, LakLak, Webmarket, Asia Print, and Exabyte. He studied Computer Science and Mathematics at Lewis & Clark College in Portland, Oregon, and completed high school at Dushanbe International School. He speaks Tajik, Russian, English, Turkish, and Uzbek, and has traveled across the United States, Canada, Russia, Romania, Türkiye, China, Uzbekistan, and Kazakhstan. His work centers on building durable companies and helping grow the technology ecosystem of Central Asia.",
 
   meta: {
     home: {
@@ -64,7 +64,7 @@ export const en = {
   },
 
   hero: {
-    eyebrow: "Dushanbe · Tajikistan",
+    eyebrow: "Dushanbe, Tajikistan",
     name: "Shohrukh Jalolov",
     headlineA: "Entrepreneur, operator,",
     headlineB: "builder.",
@@ -83,6 +83,7 @@ export const en = {
       { name: "LakLak", url: siteConfig.ventureLinks.laklak },
       { name: "Webmarket", url: siteConfig.ventureLinks.webmarket },
       { name: "Asia Print", url: siteConfig.ventureLinks.asiaprint },
+      { name: "Exabyte", url: siteConfig.ventureLinks.exabyte },
     ],
   },
 
@@ -90,7 +91,7 @@ export const en = {
     eyebrow: "By the numbers",
     items: [
       { value: "04", label: "Ventures & roles" },
-      { value: "08", label: "Companies worked with" },
+      { value: "09", label: "Companies worked with" },
       { value: "08", label: "Countries visited" },
     ],
   },
@@ -266,7 +267,7 @@ export const en = {
       },
       {
         q: "What companies are you involved in?",
-        a: "I lead business development at CifarX, co-founded the startup Refresh, and founded Makon (real estate) and Spendly (an app for accounts and ledgers). I've also worked with SoftClub, LakLak, Webmarket, and Asia Print.",
+        a: "I lead business development at CifarX, co-founded the startup Refresh, and founded Makon (real estate) and Spendly (an app for accounts and ledgers). I've also worked with SoftClub, LakLak, Webmarket, Asia Print, and Exabyte.",
       },
       {
         q: "What's your background?",

@@ -123,7 +123,7 @@ export default async function HomePage({ params }: Params) {
       <section>
         <div className="shell py-24 md:py-36">
           <Reveal>
-            <p className="eyebrow">{dict.stats.eyebrow}</p>
+            <p className="eyebrow text-center">{dict.stats.eyebrow}</p>
           </Reveal>
           <Reveal delay={100}>
             <div className="mt-12 md:mt-16">
@@ -131,7 +131,7 @@ export default async function HomePage({ params }: Params) {
             </div>
           </Reveal>
           <Reveal delay={200}>
-            <ul className="mt-14 flex flex-wrap gap-2.5 md:mt-20">
+            <ul className="mt-14 flex flex-wrap justify-center gap-2.5 md:mt-20">
               {dict.hero.tags.map((t) => (
                 <li key={t} className="chip">
                   {t}

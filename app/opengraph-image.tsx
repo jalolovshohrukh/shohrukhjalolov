@@ -27,7 +27,7 @@ export default function OpenGraphImage() {
             color: "#aaa198",
           }}
         >
-          Dushanbe · Tajikistan
+          Dushanbe, Tajikistan
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -47,13 +47,10 @@ export default function OpenGraphImage() {
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: "28px", fontSize: "24px", color: "#f3eee7" }}>
+        <div style={{ display: "flex", gap: "44px", fontSize: "24px", color: "#f3eee7" }}>
           <span>CifarX</span>
-          <span style={{ color: "#ff4d1f" }}>·</span>
           <span>Refresh</span>
-          <span style={{ color: "#ff4d1f" }}>·</span>
           <span>Makon</span>
-          <span style={{ color: "#ff4d1f" }}>·</span>
           <span>Spendly</span>
         </div>
       </div>

@@ -104,7 +104,7 @@ export function WorldMap({ locale }: { locale: Locale }) {
     // Home dots render last, so they sit on top of any nearby green dots.
     .sort((a, b) => Number(a.home) - Number(b.home))
     .map((p) => ({
-      name: p.names.join(" · "),
+      name: p.names.join(", "),
       country: p.country,
       tz: p.tz,
       x: p.x,

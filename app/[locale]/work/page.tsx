@@ -55,10 +55,9 @@ export default async function WorkPage({ params }: Params) {
             const row = (
               <div className="grid gap-5 py-10 md:py-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
                 <div>
-                  <p className="caps text-ink-faint">
+                  <p className="caps flex gap-4 text-ink-faint">
                     <span className="text-accent">{String(i + 1).padStart(2, "0")}</span>
-                    {"  ·  "}
-                    {item.tag}
+                    <span>{item.tag}</span>
                   </p>
                   <h2 className="display mt-4 text-[clamp(3.25rem,8vw,7rem)] transition-colors duration-300 group-hover:text-accent">
                     {item.name}

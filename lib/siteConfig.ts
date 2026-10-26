@@ -32,6 +32,7 @@ export const siteConfig = {
     laklak: "https://laklakmarket.tj/",
     webmarket: "https://webmarket.tj/",
     asiaprint: "https://asiaprint.tj/",
+    exabyte: "https://exabyte.com.pk/",
   },
 } as const;
 
