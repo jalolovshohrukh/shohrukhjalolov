@@ -6,8 +6,8 @@ by AI answer engines), not just classic search.
 
 - **Stack:** Next.js 16 (App Router) · TypeScript · Tailwind CSS v4
 - **Content:** Markdown files (no CMS, no login)
-- **Fonts:** General Sans (display, self-hosted in `public/fonts`) · Onest (carries Cyrillic for Russian) · JetBrains Mono (labels)
-- **Design:** Halston-inspired, fully typographic (no photography) — warm greige canvas, charcoal ink, a single deep-aubergine accent, big uppercase display type, hairline rules, and a charcoal/maroon section rhythm
+- **Font:** Inter only (variable, with the optical-size axis for the display cut; Latin + Cyrillic, incl. Tajik letters)
+- **Design:** dark editorial, fully typographic (no photography), checked against the `no-ai-slop-web` skill — near-black canvas, warm white ink, a single ember red-orange accent, big bold tight Inter headlines, ember smoke in the hero that swirls and warms around the pointer (Vivid Motion; WebGL shader in `components/EmberField.tsx`), a partner grid and venture stage (cristianoronaldo.com), a numbers row (Mogaa) and a giant-wordmark footer (Orlive). Dark by default with a light theme switch; colours are CSS variables per theme in `app/globals.css`, set before paint by `components/ThemeScript.tsx`
 
 ## Develop
 

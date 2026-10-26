@@ -5,8 +5,9 @@ import { getDictionary, type Locale } from "@/lib/i18n";
 import { WorldMapMarkers, type Marker } from "@/components/WorldMapMarkers";
 import { DayNight } from "@/components/DayNight";
 
-export const MAP_HOME = "#583939"; // home (aubergine)
-export const MAP_VISITED = "#2f8f57"; // visited (green)
+// Theme-aware colours (tokens in globals.css); used as CSS values, not attributes.
+export const MAP_HOME = "var(--accent)"; // home (ember)
+export const MAP_VISITED = "var(--map-visited)"; // visited (green)
 
 /**
  * Dotted world map. The base dots are a static server-rendered SVG; each
@@ -16,10 +17,11 @@ export const MAP_VISITED = "#2f8f57"; // visited (green)
 export function WorldMap({ locale }: { locale: Locale }) {
   const map = new DottedMap({ height: 52, grid: "diagonal" });
 
-  // Base dots first (before getPin), so they carry no coloured pins.
+  // Base dots first (before getPin), so they carry no coloured pins. They take
+  // currentColor so the wrapper can set a per-theme dot colour.
   const baseSvg = map.getSVG({
     radius: 0.3,
-    color: "#c2bbae",
+    color: "currentColor",
     shape: "circle",
     backgroundColor: "transparent",
   });
@@ -117,7 +119,7 @@ export function WorldMap({ locale }: { locale: Locale }) {
   return (
     <div className="relative">
       <div
-        className="[&>svg]:h-auto [&>svg]:w-full"
+        className="text-[var(--map-dot)] [&>svg]:h-auto [&>svg]:w-full"
         dangerouslySetInnerHTML={{ __html: baseSvg }}
       />
       <DayNight dots={nightDots} viewBox={viewBox} />

@@ -6,8 +6,8 @@ import { siteConfig } from "@/lib/siteConfig";
  *
  * Facts: Shohrukh is an entrepreneur and business developer — Business
  * Developer at CifarX, co-founder of Refresh, and founder of Makon (his own
- * real estate product). He has worked with SoftClub, LakLak, Webmarket, and
- * Flora Park. He is NOT a software developer / advisor / investor.
+ * real estate product) and Spendly (his own app for accounts and ledgers). He
+ * has worked with SoftClub, LakLak, Webmarket, and Asia Print. He is NOT a software developer / advisor / investor.
  */
 export const en = {
   langName: "English",
@@ -15,13 +15,13 @@ export const en = {
 
   // Longer bio for structured data / AI search only — not rendered on the page.
   bioLong:
-    "Shohrukh Jalolov is an entrepreneur, business developer, and founder based in Dushanbe, Tajikistan. He leads business development at CifarX, co-founded the startup Refresh, and founded Makon, his own real estate product. He has worked with SoftClub, LakLak, Webmarket, and Flora Park. He studied Computer Science and Mathematics at Lewis & Clark College in Portland, Oregon, and completed high school at Dushanbe International School. He speaks Tajik, Russian, English, Turkish, and Uzbek, and has traveled across the United States, Canada, Russia, Romania, Türkiye, China, Uzbekistan, and Kazakhstan. His work centers on building durable companies and helping grow the technology ecosystem of Central Asia.",
+    "Shohrukh Jalolov is an entrepreneur, business developer, and founder based in Dushanbe, Tajikistan. He leads business development at CifarX, co-founded the startup Refresh, and founded two products of his own: Makon, a real estate product, and Spendly, an app for accounts, ledgers and transactions. He has worked with SoftClub, LakLak, Webmarket, and Asia Print. He studied Computer Science and Mathematics at Lewis & Clark College in Portland, Oregon, and completed high school at Dushanbe International School. He speaks Tajik, Russian, English, Turkish, and Uzbek, and has traveled across the United States, Canada, Russia, Romania, Türkiye, China, Uzbekistan, and Kazakhstan. His work centers on building durable companies and helping grow the technology ecosystem of Central Asia.",
 
   meta: {
     home: {
       title: "Shohrukh Jalolov — Entrepreneur, Business Developer & Founder",
       description:
-        "Shohrukh Jalolov is an entrepreneur and business developer based in Dushanbe, Tajikistan — Business Developer at CifarX, co-founder of Refresh, and founder of Makon, a real estate product.",
+        "Shohrukh Jalolov is an entrepreneur and business developer based in Dushanbe, Tajikistan — Business Developer at CifarX, co-founder of Refresh, and founder of Makon and Spendly.",
     },
     about: {
       title: "About — Shohrukh Jalolov",
@@ -31,7 +31,7 @@ export const en = {
     work: {
       title: "Work & Ventures — Shohrukh Jalolov",
       description:
-        "The work of Shohrukh Jalolov: business development at CifarX, co-founding Refresh, and founding Makon — plus the companies he has worked with.",
+        "The work of Shohrukh Jalolov: business development at CifarX, co-founding Refresh, and founding Makon and Spendly — plus the companies he has worked with.",
     },
     vision: {
       title: "Vision — Shohrukh Jalolov",
@@ -59,6 +59,8 @@ export const en = {
     contact: "Contact",
     menu: "Menu",
     close: "Close",
+    themeToLight: "Switch to light theme",
+    themeToDark: "Switch to dark theme",
   },
 
   hero: {
@@ -66,7 +68,7 @@ export const en = {
     name: "Shohrukh Jalolov",
     headlineA: "Entrepreneur, operator,",
     headlineB: "builder.",
-    lead: "I am an entrepreneur and business developer based in Dushanbe, Tajikistan. I lead business development at CifarX, co-founded Refresh, and founded Makon, a real estate product of my own.",
+    lead: "I am an entrepreneur and business developer based in Dushanbe, Tajikistan. I lead business development at CifarX, co-founded Refresh, and founded two products of my own: Makon and Spendly.",
     ctaWork: "See the work",
     ctaContact: "Get in touch",
     tags: ["Business development", "Startups", "Products", "Real estate"],
@@ -74,20 +76,21 @@ export const en = {
 
   clients: {
     label: "Companies I have worked with",
+    // The part of `label` set in bold in the company grid heading.
+    emphasis: "worked with",
     items: [
       { name: "SoftClub", url: siteConfig.ventureLinks.softclub },
       { name: "LakLak", url: siteConfig.ventureLinks.laklak },
       { name: "Webmarket", url: siteConfig.ventureLinks.webmarket },
-      { name: "Flora Park", url: siteConfig.ventureLinks.florapark },
+      { name: "Asia Print", url: siteConfig.ventureLinks.asiaprint },
     ],
   },
 
   stats: {
     eyebrow: "By the numbers",
     items: [
-      { value: "03", label: "Ventures & roles" },
-      { value: "07", label: "Companies worked with" },
-      { value: "05", label: "Languages spoken" },
+      { value: "04", label: "Ventures & roles" },
+      { value: "08", label: "Companies worked with" },
       { value: "08", label: "Countries visited" },
     ],
   },
@@ -125,7 +128,7 @@ export const en = {
       },
       {
         title: "Building my own products",
-        body: "I build products of my own, including Makon — a real estate product in Tajikistan.",
+        body: "I build products of my own: Makon, a real estate product in Tajikistan, and Spendly, an app for accounts, ledgers and transactions.",
       },
     ],
   },
@@ -175,9 +178,18 @@ export const en = {
         name: "Makon",
         role: "Founder",
         tag: "Real Estate",
-        url: "",
+        url: siteConfig.ventureLinks.makon,
         blurb:
           "Makon is my own product — a real estate platform in Tajikistan that I founded and continue to build.",
+      },
+      {
+        id: "spendly",
+        name: "Spendly",
+        role: "Founder",
+        tag: "Fintech",
+        url: siteConfig.ventureLinks.spendly,
+        blurb:
+          "Spendly is my own product — one app that keeps accounts, ledgers and every transaction for your home, your business and every project in between.",
       },
     ],
   },
@@ -187,7 +199,7 @@ export const en = {
     title: "Shohrukh Jalolov",
     lead: "Entrepreneur, business developer, and founder based in Dushanbe, Tajikistan.",
     paragraphs: [
-      "I work at the intersection of business development, startups, and real estate. Today that means leading business development at CifarX, co-founding Refresh, and building my own product, Makon, a real estate platform in Tajikistan.",
+      "I work at the intersection of business development, startups, and real estate. Today that means leading business development at CifarX, co-founding Refresh, and building my own products: Makon, a real estate platform in Tajikistan, and Spendly, an app for accounts and ledgers.",
       "I studied Computer Science and Mathematics at Lewis & Clark College in the United States, and finished high school at Dushanbe International School. That mix — rigorous technical training and a global education brought back home — shapes how I build: analytically, but always close to the market.",
       "I care about durable businesses over hype, about partnerships over transactions, and about the long, quiet work of helping a region produce companies that matter.",
     ],
@@ -250,11 +262,11 @@ export const en = {
     items: [
       {
         q: "What do you do?",
-        a: "I'm an entrepreneur and business developer based in Dushanbe, Tajikistan. I lead business development at CifarX, co-founded Refresh, and founded Makon, my own real estate product.",
+        a: "I'm an entrepreneur and business developer based in Dushanbe, Tajikistan. I lead business development at CifarX, co-founded Refresh, and founded Makon and Spendly, products of my own.",
       },
       {
         q: "What companies are you involved in?",
-        a: "I lead business development at CifarX, co-founded the startup Refresh, and founded Makon, a real estate product. I've also worked with SoftClub, LakLak, Webmarket, and Flora Park.",
+        a: "I lead business development at CifarX, co-founded the startup Refresh, and founded Makon (real estate) and Spendly (an app for accounts and ledgers). I've also worked with SoftClub, LakLak, Webmarket, and Asia Print.",
       },
       {
         q: "What's your background?",
@@ -276,6 +288,7 @@ export const en = {
   },
 
   footer: {
+    headline: "Let's work together",
     tagline:
       "Entrepreneur, business developer & founder — Dushanbe, Tajikistan.",
     rights: "All rights reserved.",

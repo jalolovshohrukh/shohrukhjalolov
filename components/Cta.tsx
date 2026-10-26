@@ -1,44 +1,61 @@
 import Link from "next/link";
-import { Plus } from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRight, Asterisk } from "@phosphor-icons/react/dist/ssr";
 import type { ReactNode } from "react";
 
 type Props = {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "ghost" | "onDark";
+  variant?: "primary" | "ghost";
+  /** `sm` (40px) matches the other header controls; `md` (48px) everywhere else. */
+  size?: "md" | "sm";
   external?: boolean;
-  icon?: boolean;
 };
 
-/** Halston-style button: rectangular, uppercase, letter-spaced, with a "+". */
+const BASE =
+  "group inline-flex items-center gap-3 whitespace-nowrap rounded-full caps transition-colors duration-200";
+
+const SIZE = {
+  md: "h-12 px-6",
+  sm: "h-10 px-5",
+} as const;
+
+const LOOK = {
+  primary: "bg-accent text-on-accent hover:bg-accent-hover",
+  ghost: "bg-surface text-ink hover:bg-surface-2",
+} as const;
+
+/**
+ * Filled pill button (no stroke). Primary is ember with an arrow that nudges
+ * on hover; ghost is a quiet surface pill led by an ember asterisk.
+ */
 export function Cta({
   href,
   children,
   variant = "primary",
+  size = "md",
   external = false,
-  icon = true,
 }: Props) {
-  const base =
-    "group inline-flex items-center justify-between gap-6 whitespace-nowrap border px-5 py-3 font-mono text-xs uppercase tracking-[0.15em] transition-colors duration-200";
-  const look =
-    variant === "primary"
-      ? "border-ink bg-ink text-bone hover:bg-accent-ink hover:border-accent-ink"
-      : variant === "onDark"
-        ? "border-white/40 text-white hover:bg-white hover:text-ink"
-        : "border-line text-ink hover:border-ink";
-  const cls = `${base} ${look}`;
-
-  const inner = (
-    <>
-      <span>{children}</span>
-      {icon && (
-        <Plus
-          size={14}
-          className="transition-transform duration-300 group-hover:rotate-90"
+  const cls = `${BASE} ${SIZE[size]} ${LOOK[variant]}`;
+  const inner =
+    variant === "primary" ? (
+      <>
+        <span>{children}</span>
+        <ArrowUpRight
+          size={15}
+          weight="bold"
+          className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
         />
-      )}
-    </>
-  );
+      </>
+    ) : (
+      <>
+        <Asterisk
+          size={15}
+          weight="bold"
+          className="text-accent transition-transform duration-500 group-hover:rotate-90"
+        />
+        <span>{children}</span>
+      </>
+    );
 
   if (external) {
     return (

@@ -1,22 +1,34 @@
 export type Stat = { value: string; label: string };
 
-/** Halston-style achievements row: bold number + light label, hairline rules. */
+/**
+ * Mogaa-style numbers row: big figures with a short label under each, split
+ * by hairlines. Three stats sit in one row at every width; four go 2 × 2 on
+ * phones and one row from `lg`.
+ */
 export function StatRow({ stats }: { stats: readonly Stat[] }) {
+  const threeUp = stats.length === 3;
+
   return (
-    <div className="border-t border-line">
-      {stats.map((s, i) => (
-        <div
-          key={i}
-          className="flex items-center gap-6 border-b border-line py-6 md:gap-10 md:py-8"
-        >
-          <span className="w-24 shrink-0 font-display text-3xl font-bold tabular-nums text-ink md:w-44 md:text-6xl">
-            {s.value}
-          </span>
-          <span className="border-l border-line pl-6 font-display text-xl font-medium text-ink-faint md:pl-10 md:text-4xl">
-            {s.label}
-          </span>
-        </div>
-      ))}
-    </div>
+    <dl className={`grid gap-y-12 ${threeUp ? "grid-cols-3" : "grid-cols-2 lg:grid-cols-4"}`}>
+      {stats.map((s, i) => {
+        // A hairline before every figure that does not start a row.
+        const rule = threeUp
+          ? i > 0
+          : i % 2 === 1;
+        return (
+          <div
+            key={s.label}
+            className={`flex flex-col-reverse justify-end gap-3 ${
+              rule ? "border-l border-line pl-4 sm:pl-8 lg:pl-10" : "pr-4 sm:pr-6"
+            } ${!threeUp && i > 0 ? "lg:border-l lg:border-line lg:pl-10" : ""}`}
+          >
+            <dt className="text-sm text-ink-soft md:text-base">{s.label}</dt>
+            <dd className="text-[clamp(2.6rem,8vw,6rem)] font-semibold leading-[0.9] tracking-[-0.055em] tabular-nums">
+              {s.value}
+            </dd>
+          </div>
+        );
+      })}
+    </dl>
   );
 }

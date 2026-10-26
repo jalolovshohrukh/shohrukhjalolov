@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import localFont from "next/font/local";
-import { Onest, JetBrains_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "../globals.css";
 
 import { locales, getDictionary, isLocale } from "@/lib/i18n";
@@ -10,29 +9,15 @@ import { personSchema, websiteSchema, refreshSchema } from "@/lib/seo";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
+import { ThemeScript } from "@/components/ThemeScript";
 
-// General Sans (Fontshare) — self-hosted; carries the Halston Latin grotesk look.
-const generalSans = localFont({
-  variable: "--font-general",
-  display: "swap",
-  src: [
-    { path: "../../public/fonts/general-sans-400.woff2", weight: "400", style: "normal" },
-    { path: "../../public/fonts/general-sans-500.woff2", weight: "500", style: "normal" },
-    { path: "../../public/fonts/general-sans-600.woff2", weight: "600", style: "normal" },
-    { path: "../../public/fonts/general-sans-700.woff2", weight: "700", style: "normal" },
-  ],
-});
-
-// Onest carries Cyrillic (General Sans has no Cyrillic) for the Russian locale.
-const onest = Onest({
-  variable: "--font-onest",
-  subsets: ["latin", "cyrillic"],
-  display: "swap",
-});
-
-const jbMono = JetBrains_Mono({
-  variable: "--font-jbmono",
-  subsets: ["latin", "cyrillic"],
+// Inter is the one typeface: variable weight plus the optical-size axis, which
+// gives big headings a tighter display cut. Cyrillic covers Russian, and
+// cyrillic-ext the Tajik letters (ӯ, ҳ, ӣ) in the Rudaki quote.
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin", "cyrillic", "cyrillic-ext"],
+  axes: ["opsz"],
   display: "swap",
 });
 
@@ -61,15 +46,21 @@ export default async function LocaleLayout({
   const dict = getDictionary(locale);
 
   return (
+    // ThemeScript adds the theme class before React hydrates, so <html>'s
+    // className legitimately differs from the server render.
     <html
       lang={locale}
       dir={dict.dir}
-      className={`${generalSans.variable} ${onest.variable} ${jbMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${inter.variable} h-full antialiased`}
     >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="flex min-h-full flex-col">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-bone"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent"
         >
           Skip to content
         </a>

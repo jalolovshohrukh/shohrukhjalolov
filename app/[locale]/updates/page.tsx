@@ -7,6 +7,7 @@ import { getAllPosts } from "@/lib/posts";
 import { Reveal } from "@/components/Reveal";
 import { UpdateCard } from "@/components/UpdateCard";
 import { JsonLd } from "@/components/JsonLd";
+import { PageHero } from "@/components/PageHero";
 
 type Params = { params: Promise<{ locale: string }> };
 
@@ -38,30 +39,22 @@ export default async function UpdatesPage({ params }: Params) {
         ])}
       />
 
-      <section>
-        <div className="mx-auto max-w-4xl px-6 pb-10 pt-20 md:pt-28">
-          <Reveal>
-            <p className="eyebrow">{dict.updatesPage.eyebrow}</p>
-            <h1 className="display mt-6 text-[length:var(--text-h1)] text-ink">
-              {dict.updatesPage.title}
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
-              {dict.updatesPage.lead}
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={dict.updatesPage.eyebrow}
+        title={dict.updatesPage.title}
+        lead={dict.updatesPage.lead}
+      />
 
       <section>
-        <div className="mx-auto max-w-4xl px-6 pb-24">
+        <div className="shell pb-24 md:pb-32">
           {posts.length === 0 ? (
             <p className="border-t border-line pt-10 text-ink-soft">
               {dict.updatesPage.empty}
             </p>
           ) : (
-            <div className="mt-6">
+            <div className="border-b border-line">
               {posts.map((post, i) => (
-                <Reveal key={post.slug} delay={i * 50}>
+                <Reveal key={post.slug} delay={i * 60}>
                   <UpdateCard
                     post={post}
                     locale={loc}

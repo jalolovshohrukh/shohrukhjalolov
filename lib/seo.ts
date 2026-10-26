@@ -101,7 +101,8 @@ export function refreshSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${siteConfig.ventureLinks.refresh}/#org`,
+    // The site origin, not the localized page, keeps the entity id stable.
+    "@id": `${new URL(siteConfig.ventureLinks.refresh).origin}/#org`,
     name: "Refresh",
     url: siteConfig.ventureLinks.refresh,
     founder: { "@id": `${siteConfig.url}/#person` },

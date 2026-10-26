@@ -1,11 +1,37 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { Icon } from "@phosphor-icons/react";
 import {
-  fetchCurrentWeather,
-  WEATHER_EMOJI,
-  type WeatherKey,
-} from "@/lib/weather";
+  Cloud,
+  CloudFog,
+  CloudLightning,
+  CloudRain,
+  CloudSnow,
+  Sun,
+} from "@phosphor-icons/react/dist/ssr";
+import { fetchCurrentWeather, type WeatherKey } from "@/lib/weather";
+
+/** A filled glyph per condition bucket, for the tooltip. */
+const WEATHER_ICON: Record<WeatherKey, Icon> = {
+  clear: Sun,
+  cloudy: Cloud,
+  fog: CloudFog,
+  drizzle: CloudRain,
+  rain: CloudRain,
+  snow: CloudSnow,
+  showers: CloudRain,
+  thunder: CloudLightning,
+};
+
+function WeatherLine({ Glyph, text }: { Glyph: Icon; text: string }) {
+  return (
+    <div className="mt-1 flex items-center justify-center gap-1.5 text-xs tabular-nums text-ink-soft">
+      <Glyph size={13} weight="fill" className="text-accent" />
+      {text}
+    </div>
+  );
+}
 
 export type Marker = {
   name: string;
@@ -133,7 +159,7 @@ export function WorldMapMarkers({
               cx={mk.x}
               cy={mk.y}
               r={active === i ? 0.75 : 0.34}
-              fill={mk.home ? homeColor : visitedColor}
+              style={{ fill: mk.home ? homeColor : visitedColor }}
               className="pointer-events-none transition-[r] duration-200"
             />
           </g>
@@ -142,19 +168,20 @@ export function WorldMapMarkers({
 
       {m && (
         <div
-          className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[calc(100%+12px)] whitespace-nowrap rounded-md border border-line bg-paper px-3 py-2 text-center shadow-[0_2px_12px_rgba(0,0,0,0.07)]"
+          className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[calc(100%+12px)] whitespace-nowrap rounded-xl bg-surface-2 px-3.5 py-2.5 text-center shadow-[0_8px_28px_rgba(0,0,0,0.28)]"
           style={{ left: `${(m.x / vbW) * 100}%`, top: `${(m.y / vbH) * 100}%` }}
         >
-          <div className="font-display text-sm font-semibold leading-tight text-ink">
+          <div className="text-sm font-semibold leading-tight text-ink">
             {m.name}
           </div>
-          <div className="mt-0.5 font-mono text-[0.7rem] text-ink-soft">
+          <div className="mt-0.5 text-xs tabular-nums text-ink-soft">
             {timeIn(m.tz)} · {m.home ? homeLabel : m.country}
           </div>
           {w?.status === "ok" && w.key !== undefined && w.tempC !== undefined && (
-            <div className="mt-0.5 font-mono text-[0.7rem] text-ink-soft">
-              {WEATHER_EMOJI[w.key]} {Math.round(w.tempC)}° · {weatherLabels[w.key]}
-            </div>
+            <WeatherLine
+              Glyph={WEATHER_ICON[w.key]}
+              text={`${Math.round(w.tempC)}° · ${weatherLabels[w.key]}`}
+            />
           )}
         </div>
       )}

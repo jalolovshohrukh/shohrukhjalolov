@@ -1,179 +1,375 @@
 @import "tailwindcss";
 
 /*
-  Halston-inspired design system — warm greige canvas, charcoal ink, a single
-  deep-aubergine accent, and General Sans (Latin) + Onest (Cyrillic) grotesk.
-  Big uppercase display type, letter-spaced micro-labels, bordered "+" buttons,
-  full-bleed warm photography.
+  Dark editorial design system — near-black canvas, warm white ink, a single
+  ember red-orange accent, and one typeface: Inter (Latin + Cyrillic). Its
+  optical-size axis gives large headings the tighter display cut by itself.
+
+  Every colour is a CSS variable set per theme on <html> (.theme-dark is the
+  default, .theme-light the alternative; see ThemeScript). `.tone-dark` forces
+  the dark palette inside one block, so cinematic bands stay dark in both
+  themes. Tailwind utilities read the variables through `@theme inline`.
 */
 
-@theme {
-  /* Surfaces */
-  --color-bone: #e8e5e0; /* warm greige canvas */
-  --color-paper: #f1efeb; /* raised surfaces / cards */
-  --color-ink: #1c1815; /* charcoal text */
-  --color-ink-soft: #645d55; /* muted body */
-  --color-ink-faint: #978f85; /* captions / meta */
-  --color-line: #d4cfc6; /* hairline borders */
-  --color-line-soft: rgba(28, 24, 21, 0.08);
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--on-accent);
 
-  /* Single accent: deep aubergine (used as dark section bands + small marks) */
-  --color-accent: #583939;
-  --color-accent-ink: #3f2829;
-  --color-accent-soft: #ece2df;
-
-  /* Type — General Sans (Latin) with Onest carrying Cyrillic for Russian */
-  --font-sans: var(--font-general), var(--font-onest), system-ui, sans-serif;
-  --font-display: var(--font-general), var(--font-onest), system-ui, sans-serif;
-  --font-mono: var(--font-jbmono), ui-monospace, monospace;
-
-  /* Display scale (big, tight) */
-  --text-display: clamp(2.75rem, 7vw, 6rem);
-  --text-h1: clamp(2.25rem, 5vw, 4rem);
-  --text-h2: clamp(1.6rem, 3.2vw, 2.6rem);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
 }
 
-:root {
+@theme {
+  /* Display scale */
+  --text-hero: clamp(4rem, calc(14vw + 0.75rem), 13rem);
+  --text-display: clamp(3rem, 8vw, 7.5rem);
+  --text-h1: clamp(2.4rem, 5.4vw, 4.75rem);
+  --text-h2: clamp(1.7rem, 3.2vw, 2.75rem);
+}
+
+:root,
+.theme-dark,
+.tone-dark {
+  color-scheme: dark;
+  --canvas: #0b0a09;
+  --surface: #151311;
+  --surface-2: #1f1c19;
+  --ink: #f3eee7;
+  --ink-soft: #aaa198;
+  --ink-faint: #756d64;
+  --line: rgba(243, 238, 231, 0.11);
+  --accent: #ff4d1f;
+  --accent-hover: #ff6a43;
+  --on-accent: #140805;
+  --grid-line: rgba(255, 77, 31, 0.22);
+
+  /* Hero / band glow */
+  --glow-hot: rgba(255, 64, 18, 0.62);
+  --glow-deep: rgba(140, 22, 4, 0.75);
+  --glow-fold: rgba(11, 10, 9, 0.85);
+
+  /* World map */
+  --map-dot: rgba(243, 238, 231, 0.2);
+  --map-night: rgba(11, 10, 9, 0.7);
+  --map-visited: #3aa76a;
+}
+
+.theme-light {
   color-scheme: light;
+  --canvas: #f3efe9;
+  --surface: #e9e3da;
+  --surface-2: #ded7cc;
+  --ink: #15120f;
+  --ink-soft: #5c554d;
+  --ink-faint: #8b8379;
+  --line: rgba(21, 18, 15, 0.13);
+  --accent: #c8380b;
+  --accent-hover: #ab2f08;
+  --on-accent: #ffffff;
+  --grid-line: rgba(200, 56, 11, 0.28);
+
+  --glow-hot: rgba(255, 92, 40, 0.5);
+  --glow-deep: rgba(214, 60, 18, 0.32);
+  --glow-fold: rgba(243, 239, 233, 0.85);
+
+  --map-dot: rgba(21, 18, 15, 0.22);
+  --map-night: rgba(21, 18, 15, 0.3);
+  --map-visited: #2f8f57;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    background: var(--canvas);
   }
 
   body {
-    background: var(--color-bone);
-    color: var(--color-ink);
+    background: var(--canvas);
+    color: var(--ink);
     font-family: var(--font-sans);
+    font-optical-sizing: auto;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background: var(--color-accent);
-    color: #fff;
+    background: var(--accent);
+    color: var(--on-accent);
   }
 
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    font-weight: 600;
-    line-height: 1.04;
-    letter-spacing: -0.02em;
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+@utility shell {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 84rem;
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 3rem;
   }
 }
 
 @layer components {
-  /* Big uppercase display headline (the Halston signature) */
+  /* Big, bold, tight headline (Inter's display cut via its opsz axis) */
   .display {
-    font-family: var(--font-display);
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.045em;
     line-height: 0.95;
   }
 
-  /* Inline mono micro-label */
+  /* Small uppercase section label */
   .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-ink-faint);
+    color: var(--ink-faint);
   }
 
-  /* Bordered pill micro-label, e.g. ACHIEVEMENTS */
-  .pill {
+  /* Small uppercase label for buttons, nav links and dates */
+  .caps {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Wide-tracked uppercase label, as on cristianoronaldo.com */
+  .spaced {
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+  }
+
+  /* Filled chip (no stroke) */
+  .chip {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    border: 1px solid var(--color-line);
     border-radius: 9999px;
-    padding: 0.4rem 0.85rem;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-ink-soft);
-  }
-  .pill::before {
-    content: "";
-    width: 5px;
-    height: 5px;
-    border-radius: 9999px;
-    background: var(--color-accent);
-  }
-
-  /* Centered uppercase title overlaid on imagery */
-  .overlay-title {
-    font-family: var(--font-display);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    color: #fff;
+    background: var(--surface);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: var(--ink-soft);
   }
 }
 
-/* Reveal-on-scroll */
-.reveal {
+/* ------------------------------------------------------------------ */
+/* Reveal on scroll. Hidden only once JavaScript is running            */
+/* (html.js-reveal), so the page is fully readable without it.         */
+/* ------------------------------------------------------------------ */
+.js-reveal .reveal {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(36px);
   transition:
-    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
 }
-.reveal.is-visible {
+.js-reveal .reveal.is-visible {
   opacity: 1;
   transform: none;
 }
 
+/* ------------------------------------------------------------------ */
+/* Ember glow — slow-moving light behind the hero and dark bands       */
+/* ------------------------------------------------------------------ */
+.glow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* Still light: only the hero's shader (EmberField) moves, so these bands
+   model light without becoming the "animated blob" look. */
+.glow-blob {
+  position: absolute;
+  border-radius: 9999px;
+}
+.glow-hot {
+  width: 64vmax;
+  height: 64vmax;
+  left: 38%;
+  top: -30%;
+  background: radial-gradient(closest-side, var(--glow-hot), transparent);
+}
+.glow-deep {
+  width: 52vmax;
+  height: 78vmax;
+  left: 58%;
+  top: -18%;
+  background: radial-gradient(closest-side, var(--glow-deep), transparent);
+}
+.glow-fold {
+  width: 12vmax;
+  height: 70vmax;
+  left: 62%;
+  top: -10%;
+  transform: rotate(18deg);
+  background: radial-gradient(closest-side, var(--glow-fold), transparent);
+}
+
+/* ------------------------------------------------------------------ */
+/* Marquee — duplicated track slides half its width, seamless loop     */
+/* ------------------------------------------------------------------ */
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 46s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Company grid hairlines — fade out towards the edges                 */
+/* ------------------------------------------------------------------ */
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      to right,
+      transparent calc(100% - 1px),
+      var(--grid-line) calc(100% - 1px)
+    ),
+    linear-gradient(
+      to bottom,
+      transparent calc(100% - 1px),
+      var(--grid-line) calc(100% - 1px)
+    );
+  background-size:
+    calc(100% / var(--cols)) 100%,
+    100% calc(100% / var(--rows));
+  mask-image: radial-gradient(ellipse 70% 75% at 50% 50%, #000 45%, transparent 100%);
+}
+
+/* Footer wordmark fades into the panel at its foot */
+.wordmark-fade {
+  mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+}
+
+/* Active nav link: a fine ember rule struck through the label */
+.nav-active {
+  position: relative;
+  color: var(--ink);
+}
+.nav-active::after {
+  content: "";
+  position: absolute;
+  left: -0.35em;
+  right: -0.35em;
+  top: 50%;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion: reveals become a plain fade; the marquee stands     */
+/* ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .reveal {
-    opacity: 1;
+  .js-reveal .reveal {
     transform: none;
-    transition: none;
+    transition: opacity 0.8s ease;
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .marquee {
+    mask-image: none;
+  }
+  .marquee-track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.75rem;
+  }
+  .marquee-track > li {
+    padding-inline: clamp(0.9rem, 2.4vw, 2rem);
+  }
+  .marquee-copy {
+    display: none;
   }
 }
 
-/* Markdown prose for weekly updates */
+/* ------------------------------------------------------------------ */
+/* Markdown prose for weekly updates                                   */
+/* ------------------------------------------------------------------ */
 .prose {
-  color: var(--color-ink-soft);
-  font-size: 1.075rem;
+  color: var(--ink-soft);
+  font-size: 1.1rem;
   line-height: 1.75;
 }
 .prose > * + * {
   margin-top: 1.25em;
 }
 .prose h2 {
+  font-weight: 700;
+  letter-spacing: -0.035em;
   font-size: var(--text-h2);
-  color: var(--color-ink);
+  line-height: 1.05;
+  color: var(--ink);
   margin-top: 2em;
 }
 .prose h3 {
-  font-size: 1.4rem;
-  color: var(--color-ink);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--ink);
   margin-top: 1.6em;
 }
 .prose a {
-  color: var(--color-accent);
+  color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .prose strong {
-  color: var(--color-ink);
+  color: var(--ink);
   font-weight: 600;
 }
 .prose blockquote {
-  border-left: 2px solid var(--color-accent);
+  border-left: 2px solid var(--accent);
   padding-left: 1.25rem;
-  font-style: italic;
-  color: var(--color-ink);
+  font-weight: 500;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
 }
 .prose ul,
 .prose ol {
@@ -189,9 +385,9 @@
   list-style: decimal;
 }
 .prose code {
-  font-family: var(--font-mono);
+  font-family: ui-monospace, monospace;
   font-size: 0.9em;
-  background: var(--color-accent-soft);
+  background: var(--surface);
   padding: 0.1em 0.35em;
   border-radius: 4px;
 }

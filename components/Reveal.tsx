@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 /**
- * Invisible-sophistication scroll reveal: fade + 14px rise once in view.
- * Honors prefers-reduced-motion via CSS (.reveal rules in globals.css).
+ * Scroll reveal: fade + rise once in view (a plain fade for reduced motion).
+ * Content is only hidden once ThemeScript has set html.js-reveal, so without
+ * JavaScript everything stays visible (.reveal rules in globals.css).
  */
 export function Reveal({
   children,

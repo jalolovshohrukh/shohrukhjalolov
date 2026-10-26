@@ -14,18 +14,6 @@ export type WeatherKey =
   | "showers"
   | "thunder";
 
-/** A small emoji per condition bucket, for the tooltip. */
-export const WEATHER_EMOJI: Record<WeatherKey, string> = {
-  clear: "☀️",
-  cloudy: "☁️",
-  fog: "🌫️",
-  drizzle: "🌦️",
-  rain: "🌧️",
-  snow: "❄️",
-  showers: "🌦️",
-  thunder: "⛈️",
-};
-
 /** Bucket a WMO weather code into one of our condition keys. */
 export function weatherConditionKey(code: number): WeatherKey {
   if (code === 0 || code === 1) return "clear";

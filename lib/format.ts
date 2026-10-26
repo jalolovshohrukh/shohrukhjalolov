@@ -14,7 +14,11 @@ export function formatDate(date: string, locale: Locale): string {
   }).format(d);
 }
 
-/** "https://refresh.tj/" -> "refresh.tj" */
+/** "https://www.softclub.tj/en" -> "softclub.tj" (host only, for link labels) */
 export function prettyDomain(url: string): string {
-  return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
 }

@@ -5,7 +5,9 @@ import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata, breadcrumbSchema } from "@/lib/seo";
 import { Reveal } from "@/components/Reveal";
 import { Cta } from "@/components/Cta";
+import { Glow } from "@/components/Glow";
 import { JsonLd } from "@/components/JsonLd";
+import { PageHero } from "@/components/PageHero";
 
 type Params = { params: Promise<{ locale: string }> };
 
@@ -29,7 +31,7 @@ export default async function VisionPage({ params }: Params) {
   const base = `/${loc}`;
 
   return (
-    <>
+    <article>
       <JsonLd
         data={breadcrumbSchema(loc, [
           { name: dict.nav.home, path: "" },
@@ -37,53 +39,56 @@ export default async function VisionPage({ params }: Params) {
         ])}
       />
 
-      <article>
-        <section>
-          <div className="mx-auto max-w-3xl px-6 pb-12 pt-20 md:pt-28">
-            <Reveal>
-              <p className="eyebrow">{dict.vision.eyebrow}</p>
-              <h1 className="display mt-6 text-[length:var(--text-h1)] text-ink">
-                {dict.vision.title}
-              </h1>
-            </Reveal>
-          </div>
-        </section>
+      <PageHero eyebrow={dict.vision.eyebrow} title={dict.vision.title} />
 
-        <section>
-          <div className="mx-auto max-w-3xl px-6 pb-8">
-            <div className="space-y-7 text-lg leading-relaxed text-ink-soft">
-              {dict.vision.paragraphs.map((p, i) => (
-                <Reveal key={i} delay={i * 60}>
-                  <p className={i === 0 ? "text-xl text-ink" : undefined}>{p}</p>
-                </Reveal>
-              ))}
+      <section className="border-t border-line">
+        <div className="shell py-24 md:py-32">
+          <div className="max-w-3xl space-y-8 text-lg leading-relaxed text-ink-soft">
+            {dict.vision.paragraphs.map((p, i) => (
+              <Reveal key={p} delay={i * 70}>
+                <p
+                  className={
+                    i === 0
+                      ? "text-[clamp(1.4rem,2.2vw,1.9rem)] font-medium leading-[1.3] tracking-[-0.03em] text-ink"
+                      : undefined
+                  }
+                >
+                  {p}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Rudaki — dark ember band in both themes */}
+      <section className="tone-dark relative isolate overflow-hidden bg-canvas text-ink">
+        <Glow className="rotate-180" />
+        <div className="shell py-28 text-center md:py-40">
+          <Reveal>
+            <blockquote className="mx-auto max-w-5xl text-[clamp(2rem,4.6vw,4.1rem)] font-semibold leading-[1.06] tracking-[-0.045em]">
+              “{dict.vision.pullquote}”
+            </blockquote>
+            <p className="mx-auto mt-8 max-w-3xl text-lg leading-snug text-ink-soft md:text-xl">
+              {dict.vision.pullquoteOriginal}
+            </p>
+            <p className="eyebrow mt-6">— {dict.vision.pullquoteSource}</p>
+          </Reveal>
+        </div>
+      </section>
+
+      <section>
+        <div className="shell py-20 md:py-28">
+          <Reveal>
+            <div className="flex flex-wrap items-center gap-3">
+              <Cta href={`${base}/updates`}>{dict.vision.cta}</Cta>
+              <Cta href={`${base}/work`} variant="ghost">
+                {dict.nav.work}
+              </Cta>
             </div>
-          </div>
-        </section>
-
-        <section>
-          <div className="mx-auto max-w-3xl px-6 py-12">
-            <Reveal>
-              <blockquote className="border-l-2 border-accent pl-6 font-display text-2xl italic leading-snug text-accent-ink md:text-3xl">
-                “{dict.vision.pullquote}”
-              </blockquote>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="border-t border-line">
-          <div className="mx-auto max-w-3xl px-6 py-16 md:py-20">
-            <Reveal>
-              <div className="flex flex-wrap items-center gap-3">
-                <Cta href={`${base}/updates`}>{dict.vision.cta}</Cta>
-                <Cta href={`${base}/work`} variant="ghost">
-                  {dict.nav.work}
-                </Cta>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-      </article>
-    </>
+          </Reveal>
+        </div>
+      </section>
+    </article>
   );
 }

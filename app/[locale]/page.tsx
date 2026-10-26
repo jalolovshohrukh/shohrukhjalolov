@@ -4,25 +4,22 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata, faqSchema } from "@/lib/seo";
 import { getAllPosts } from "@/lib/posts";
+import { allCompanies } from "@/lib/companies";
+import { visited } from "@/lib/places";
 import { Reveal } from "@/components/Reveal";
 import { Cta } from "@/components/Cta";
+import { Glow } from "@/components/Glow";
+import { EmberField } from "@/components/EmberField";
+import { Marquee } from "@/components/Marquee";
 import { StatRow } from "@/components/StatRow";
-import { VentureCard } from "@/components/VentureCard";
+import { VentureShowcase } from "@/components/VentureShowcase";
+import { CompanyGrid } from "@/components/CompanyGrid";
 import { UpdateCard } from "@/components/UpdateCard";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
-import { WorldMap, MAP_VISITED } from "@/components/WorldMap";
-import { visited } from "@/lib/places";
+import { WorldMap, MAP_HOME, MAP_VISITED } from "@/components/WorldMap";
 
 type Params = { params: Promise<{ locale: string }> };
-
-/** Per-company hover text colour for the "worked with" strip (text only). */
-const CLIENT_HOVER: Record<string, string> = {
-  SoftClub: "hover:text-[#5fa8dd]", // baby blue
-  LakLak: "hover:text-[#1f4e9b]", // darker blue
-  Webmarket: "hover:text-[#e06a1f]", // orange
-  "Flora Park": "hover:text-[#2f8f57]", // green
-};
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { locale } = await params;
@@ -43,116 +40,200 @@ export default async function HomePage({ params }: Params) {
   const dict = getDictionary(loc);
   const base = `/${loc}`;
   const posts = getAllPosts(loc).slice(0, 3);
+  const companies = allCompanies(dict);
+  const [firstName, ...lastName] = dict.hero.name.split(" ");
 
   return (
     <>
       <JsonLd data={faqSchema(loc)} />
 
-      {/* Hero — pure typography */}
-      <section className="border-b border-line">
-        <div className="mx-auto max-w-6xl px-6 pb-16 pt-16 md:pb-24 md:pt-24">
-          <Reveal>
-            <p className="eyebrow">{dict.hero.eyebrow}</p>
-            <h1 className="display mt-6 max-w-5xl text-[length:var(--text-display)] text-ink">
-              {dict.hero.headlineA} {dict.hero.headlineB}
-            </h1>
-          </Reveal>
+      {/* Hero — huge name over ember smoke that answers the pointer (the CSS
+          glow shows until the shader takes over, or instead of it without
+          WebGL); slides under the header */}
+      <section className="relative isolate -mt-16 overflow-hidden pt-16 md:-mt-20 md:pt-20">
+        <Glow />
+        <EmberField />
+        <div className="shell flex min-h-[calc(100svh-9rem)] flex-col justify-between gap-14 pb-12 pt-12 md:pt-20">
+          <div>
+            <Reveal>
+              <p className="eyebrow">{dict.hero.eyebrow}</p>
+            </Reveal>
+            <Reveal delay={90}>
+              <h1 className="display mt-6 text-[length:var(--text-hero)] leading-[0.86] tracking-[-0.055em]">
+                <span className="block">{firstName}</span>
+                <span className="block">{lastName.join(" ")}</span>
+              </h1>
+            </Reveal>
+          </div>
 
-          <Reveal delay={120}>
-            <div className="mt-12 grid gap-8 border-t border-line pt-8 md:grid-cols-[1fr_auto] md:items-center">
-              <p className="max-w-2xl text-lg leading-relaxed text-ink-soft">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <Reveal delay={200}>
+              <p className="text-[clamp(1.6rem,2.8vw,2.3rem)] font-semibold leading-[1.1] tracking-[-0.035em]">
+                {dict.hero.headlineA} <span className="text-accent">{dict.hero.headlineB}</span>
+              </p>
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
                 {dict.hero.lead}
               </p>
+            </Reveal>
+            <Reveal delay={300}>
               <div className="flex flex-wrap gap-3">
                 <Cta href={`${base}/work`}>{dict.hero.ctaWork}</Cta>
                 <Cta href={`${base}/contact`} variant="ghost">
                   {dict.hero.ctaContact}
                 </Cta>
               </div>
+            </Reveal>
+          </div>
+        </div>
+
+        <Reveal delay={420}>
+          <div className="pb-12">
+            <Marquee items={companies} label={dict.clients.label} />
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Ventures — cristianoronaldo.com "brands" stage, dark in both themes */}
+      <section className="tone-dark relative isolate overflow-hidden bg-canvas text-ink">
+        <div className="shell py-24 md:py-32">
+          <Reveal>
+            <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
+              <div>
+                <p className="eyebrow">{dict.ventures.eyebrow}</p>
+                <h2 className="display mt-5 text-[length:var(--text-h1)]">
+                  {dict.ventures.title}
+                </h2>
+              </div>
+              <p className="max-w-md text-lg leading-relaxed text-ink-soft lg:justify-self-end">
+                {dict.ventures.lead}
+              </p>
             </div>
           </Reveal>
+          <div className="mt-14 md:mt-20">
+            <VentureShowcase
+              items={dict.ventures.items}
+              visitLabel={dict.ventures.visit}
+              listLabel={dict.ventures.eyebrow}
+            />
+          </div>
+        </div>
+      </section>
 
-          <Reveal delay={200}>
-            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2">
-              {dict.hero.tags.map((t) => (
-                <span
-                  key={t}
-                  className="font-mono text-xs uppercase tracking-[0.18em] text-ink-faint"
-                >
-                  {t}
-                </span>
-              ))}
+      {/* By the numbers */}
+      <section>
+        <div className="shell py-24 md:py-36">
+          <Reveal>
+            <p className="eyebrow">{dict.stats.eyebrow}</p>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="mt-12 md:mt-16">
+              <StatRow stats={dict.stats.items} />
             </div>
+          </Reveal>
+          <Reveal delay={200}>
+            <ul className="mt-14 flex flex-wrap gap-2.5 md:mt-20">
+              {dict.hero.tags.map((t) => (
+                <li key={t} className="chip">
+                  {t}
+                </li>
+              ))}
+            </ul>
           </Reveal>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="border-t border-line bg-paper">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+      {/* How I work */}
+      <section className="border-t border-line">
+        <div className="shell grid gap-12 py-24 md:py-36 lg:grid-cols-[1fr_1.25fr] lg:gap-20">
+          <Reveal className="lg:sticky lg:top-32 lg:self-start">
+            <p className="eyebrow">{dict.focus.eyebrow}</p>
+            <h2 className="display mt-5 text-[length:var(--text-h1)]">
+              {dict.focus.title}
+            </h2>
+          </Reveal>
+          <div className="border-t border-line">
+            {dict.focus.pillars.map((p, i) => (
+              <Reveal key={p.title} delay={i * 90}>
+                <div className="grid grid-cols-[2.5rem_1fr] gap-4 border-b border-line py-9 md:grid-cols-[3.5rem_1fr] md:py-11">
+                  <span className="pt-2 text-xs font-medium tabular-nums text-accent">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="text-[1.75rem] font-semibold leading-[1.08] tracking-[-0.035em] md:text-[2.25rem]">
+                      {p.title}
+                    </h3>
+                    <p className="mt-4 max-w-xl leading-relaxed text-ink-soft">{p.body}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Companies — cristianoronaldo.com partner grid */}
+      <section className="border-t border-line">
+        <div className="shell py-24 md:py-36">
           <Reveal>
-            <span className="pill">{dict.stats.eyebrow}</span>
-            <div className="mt-10">
-              <StatRow stats={dict.stats.items} />
-            </div>
+            <CompanyGrid
+              items={companies}
+              label={dict.clients.label}
+              emphasis={dict.clients.emphasis}
+            />
           </Reveal>
         </div>
       </section>
 
       {/* Where I've been — dotted world map */}
       <section className="border-t border-line">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+        <div className="shell py-24 md:py-36">
           <Reveal>
-            <p className="eyebrow">{dict.places.eyebrow}</p>
-            <h2 className="display mt-4 text-[length:var(--text-h1)] text-ink">
-              {dict.places.title}
-            </h2>
-            <p className="mt-4 max-w-xl text-ink-soft">{dict.places.caption}</p>
+            <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
+              <div>
+                <p className="eyebrow">{dict.places.eyebrow}</p>
+                <h2 className="display mt-5 text-[length:var(--text-h1)]">
+                  {dict.places.title}
+                </h2>
+              </div>
+              <p className="max-w-md text-lg leading-relaxed text-ink-soft lg:justify-self-end">
+                {dict.places.caption}
+              </p>
+            </div>
           </Reveal>
 
           <Reveal delay={80}>
-            <div className="mt-12">
+            <div className="mt-14">
               <WorldMap locale={loc} />
             </div>
           </Reveal>
 
           <Reveal delay={120}>
-            {/* Legend */}
-            <div className="mt-8 flex flex-wrap gap-6 font-mono text-xs uppercase tracking-[0.15em] text-ink-soft">
+            <div className="mt-10 flex flex-wrap gap-6 caps text-ink-soft">
               <span className="inline-flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-accent" />
+                <span className="h-2 w-2 rounded-full" style={{ background: MAP_HOME }} />
                 {dict.places.home}
               </span>
               <span className="inline-flex items-center gap-2">
-                <span
-                  className="h-2 w-2 rounded-full"
-                  style={{ background: MAP_VISITED }}
-                />
+                <span className="h-2 w-2 rounded-full" style={{ background: MAP_VISITED }} />
                 {dict.places.visited}
               </span>
             </div>
 
             {/* Place list grouped by country (also feeds search/GEO) */}
-            <ul className="mt-8 grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-10 grid grid-cols-1 gap-x-10 gap-y-7 border-t border-line pt-10 sm:grid-cols-2 lg:grid-cols-3">
               {visited.map((country) => (
                 <li key={country.en}>
                   <div className="flex items-center gap-2">
                     <span
                       className="h-1.5 w-1.5 shrink-0 rounded-full"
-                      style={{
-                        background: country.home
-                          ? "var(--color-accent)"
-                          : MAP_VISITED,
-                      }}
+                      style={{ background: country.home ? MAP_HOME : MAP_VISITED }}
                     />
-                    <span className="font-mono text-xs uppercase tracking-[0.15em] text-ink">
+                    <span className="caps text-ink">
                       {loc === "ru" ? country.ru : country.en}
                     </span>
                   </div>
-                  <p className="mt-1.5 pl-4 text-sm leading-relaxed text-ink-soft">
-                    {country.cities
-                      .map((c) => (loc === "ru" ? c.ru : c.en))
-                      .join(", ")}
+                  <p className="mt-2 pl-3.5 text-sm leading-relaxed text-ink-soft">
+                    {country.cities.map((c) => (loc === "ru" ? c.ru : c.en)).join(", ")}
                   </p>
                 </li>
               ))}
@@ -162,8 +243,8 @@ export default async function HomePage({ params }: Params) {
       </section>
 
       {/* Lewis & Clark College tribute */}
-      <section className="border-t border-line bg-paper">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <section className="border-t border-line">
+        <div className="shell py-24 md:py-36">
           <Reveal>
             <p className="eyebrow">{dict.college.eyebrow}</p>
             {/* Official Lewis & Clark College logo — the mark already includes
@@ -171,21 +252,19 @@ export default async function HomePage({ params }: Params) {
             <img
               src="/lewis-clark-logo.svg"
               alt="Lewis & Clark College"
-              className="mt-6 h-24 w-auto md:h-32"
+              className="mt-8 h-24 w-auto md:h-32"
             />
           </Reveal>
           <Reveal delay={90}>
-            <div className="mt-12 grid gap-10 md:grid-cols-[1.7fr_1fr]">
-              <p className="max-w-2xl text-lg leading-relaxed text-ink-soft">
+            <div className="mt-14 grid gap-12 lg:grid-cols-[1.7fr_1fr] lg:gap-20">
+              <p className="text-[clamp(1.5rem,2.4vw,2.1rem)] font-medium leading-[1.25] tracking-[-0.035em]">
                 {dict.college.body}
               </p>
-              <div>
+              <div className="lg:pt-2">
                 <p className="eyebrow">{dict.college.thanksLabel}</p>
-                <p className="mt-3 leading-relaxed text-ink">
+                <p className="mt-4 leading-relaxed text-ink">
                   {dict.college.thanksNames}{" "}
-                  <span className="text-ink-faint">
-                    {dict.college.thanksMore}
-                  </span>
+                  <span className="text-ink-faint">{dict.college.thanksMore}</span>
                 </p>
               </div>
             </div>
@@ -193,113 +272,21 @@ export default async function HomePage({ params }: Params) {
         </div>
       </section>
 
-      {/* Focus — typographic numbered blocks */}
-      <section className="border-t border-line">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+      {/* Vision — Rudaki, on a dark ember band in both themes */}
+      <section className="tone-dark relative isolate overflow-hidden bg-canvas text-ink">
+        <Glow className="rotate-180" />
+        <div className="shell py-28 text-center md:py-44">
           <Reveal>
-            <p className="eyebrow">{dict.focus.eyebrow}</p>
-            <h2 className="display mt-4 max-w-3xl text-[length:var(--text-h1)] text-ink">
-              {dict.focus.title}
-            </h2>
-          </Reveal>
-          <div className="mt-12 border-t border-line">
-            {dict.focus.pillars.map((p, i) => (
-              <Reveal key={i} delay={i * 70}>
-                <div className="grid gap-4 border-b border-line py-9 md:grid-cols-[auto_1fr] md:gap-12 md:py-12">
-                  <span className="font-display text-5xl font-bold text-ink-faint md:text-7xl">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-2xl font-semibold uppercase tracking-tight text-ink md:text-3xl">
-                      {p.title}
-                    </h3>
-                    <p className="mt-3 max-w-2xl text-ink-soft">{p.body}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Companies I have worked with */}
-      <section className="border-t border-line bg-paper">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-          <Reveal>
-            <span className="pill">{dict.clients.label}</span>
-            <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden border border-line bg-line md:grid-cols-4">
-              {dict.clients.items.map((c) => {
-                const cls =
-                  "flex items-center justify-center bg-paper py-12 font-display text-2xl font-semibold tracking-tight text-ink transition-colors md:text-3xl";
-                const hover = CLIENT_HOVER[c.name] ?? "hover:text-accent";
-                return c.url ? (
-                  <a
-                    key={c.name}
-                    href={c.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${cls} ${hover}`}
-                  >
-                    {c.name}
-                  </a>
-                ) : (
-                  <div key={c.name} className={cls}>
-                    {c.name}
-                  </div>
-                );
-              })}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Ventures */}
-      <section className="border-t border-line">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-          <Reveal>
-            <p className="eyebrow">{dict.ventures.eyebrow}</p>
-            <h2 className="display mt-4 max-w-3xl text-[length:var(--text-h1)] text-ink">
-              {dict.ventures.title}
-            </h2>
-            <p className="mt-5 max-w-xl text-ink-soft">{dict.ventures.lead}</p>
-          </Reveal>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {dict.ventures.items.map((item, i) => (
-              <Reveal key={item.id} delay={i * 60} className="h-full">
-                <VentureCard
-                  item={item}
-                  index={String(i + 1).padStart(2, "0")}
-                  visitLabel={dict.ventures.visit}
-                />
-              </Reveal>
-            ))}
-          </div>
-          <div className="mt-10">
-            <Cta href={`${base}/work`} variant="ghost">
-              {dict.hero.ctaWork}
-            </Cta>
-          </div>
-        </div>
-      </section>
-
-      {/* Vision band — deep aubergine */}
-      <section className="border-t border-accent-ink bg-accent text-bone">
-        <div className="mx-auto max-w-4xl px-6 py-24 text-center md:py-32">
-          <Reveal>
-            <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-bone/60">
-              {dict.vision.eyebrow}
-            </p>
-            <blockquote className="mx-auto mt-8 max-w-3xl font-display text-3xl font-medium leading-tight text-bone md:text-4xl">
+            <p className="eyebrow">{dict.vision.eyebrow}</p>
+            <blockquote className="mx-auto mt-10 max-w-5xl text-[clamp(2rem,4.8vw,4.25rem)] font-semibold leading-[1.06] tracking-[-0.045em]">
               “{dict.vision.pullquote}”
             </blockquote>
-            <p className="mx-auto mt-6 max-w-2xl font-display text-lg leading-snug text-bone/70 md:text-xl">
+            <p className="mx-auto mt-8 max-w-3xl text-lg leading-snug text-ink-soft md:text-xl">
               {dict.vision.pullquoteOriginal}
             </p>
-            <p className="mt-4 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-bone/60">
-              — {dict.vision.pullquoteSource}
-            </p>
-            <div className="mt-10 flex justify-center">
-              <Cta href={`${base}/vision`} variant="onDark">
+            <p className="eyebrow mt-6">— {dict.vision.pullquoteSource}</p>
+            <div className="mt-12 flex justify-center">
+              <Cta href={`${base}/vision`} variant="ghost">
                 {dict.nav.vision}
               </Cta>
             </div>
@@ -307,15 +294,15 @@ export default async function HomePage({ params }: Params) {
         </div>
       </section>
 
-      {/* Weekly updates — list */}
+      {/* Weekly updates */}
       {posts.length > 0 && (
-        <section className="border-t border-line">
-          <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+        <section>
+          <div className="shell py-24 md:py-36">
             <Reveal>
-              <div className="flex flex-wrap items-end justify-between gap-4">
+              <div className="flex flex-wrap items-end justify-between gap-6">
                 <div>
                   <p className="eyebrow">{dict.updatesTeaser.eyebrow}</p>
-                  <h2 className="display mt-4 text-[length:var(--text-h1)] text-ink">
+                  <h2 className="display mt-5 text-[length:var(--text-h1)]">
                     {dict.updatesTeaser.title}
                   </h2>
                 </div>
@@ -324,9 +311,9 @@ export default async function HomePage({ params }: Params) {
                 </Cta>
               </div>
             </Reveal>
-            <div className="mt-10">
+            <div className="mt-14 border-b border-line">
               {posts.map((post, i) => (
-                <Reveal key={post.slug} delay={i * 60}>
+                <Reveal key={post.slug} delay={i * 80}>
                   <UpdateCard
                     post={post}
                     locale={loc}
@@ -340,32 +327,13 @@ export default async function HomePage({ params }: Params) {
       )}
 
       {/* FAQ — GEO */}
-      <section className="border-t border-line bg-paper">
-        <div className="mx-auto max-w-3xl px-6 py-16 md:py-20">
-          <Reveal>
-            <h2 className="display text-[length:var(--text-h2)] text-ink">
-              {dict.faq.title}
-            </h2>
-            <div className="mt-10">
-              <Faq items={dict.faq.items} />
-            </div>
+      <section className="border-t border-line">
+        <div className="shell grid gap-12 py-24 md:py-36 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
+          <Reveal className="lg:sticky lg:top-32 lg:self-start">
+            <h2 className="display text-[length:var(--text-h1)]">{dict.faq.title}</h2>
           </Reveal>
-        </div>
-      </section>
-
-      {/* Contact CTA — charcoal band */}
-      <section className="border-t border-line bg-ink text-bone">
-        <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
-          <Reveal>
-            <h2 className="display max-w-3xl text-[length:var(--text-h1)] text-bone">
-              {dict.contact.title}
-            </h2>
-            <p className="mt-4 max-w-md text-bone/70">{dict.contact.lead}</p>
-            <div className="mt-8">
-              <Cta href={`${base}/contact`} variant="onDark">
-                {dict.contact.ctaEmail}
-              </Cta>
-            </div>
+          <Reveal delay={100}>
+            <Faq items={dict.faq.items} />
           </Reveal>
         </div>
       </section>

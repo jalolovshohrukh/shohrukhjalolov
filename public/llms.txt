@@ -1,6 +1,6 @@
 # Shohrukh Jalolov
 
-> Shohrukh Jalolov is an entrepreneur and business developer based in Dushanbe, Tajikistan. He is Business Developer at CifarX, co-founder of the startup Refresh, and the founder of Makon, his own real estate product. He has also worked with SoftClub, LakLak, Webmarket, and Flora Park.
+> Shohrukh Jalolov is an entrepreneur and business developer based in Dushanbe, Tajikistan. He is Business Developer at CifarX, co-founder of the startup Refresh, and the founder of two products of his own: Makon (real estate) and Spendly (an app for accounts, ledgers and transactions). He has also worked with SoftClub, LakLak, Webmarket, and Asia Print.
 
 ## Facts
 
@@ -9,14 +9,15 @@
 - Office: Regus, Buston City
 - Email: jalolovshohrukh@gmail.com
 - Roles:
-  - Business Developer at CifarX (https://cifarx.com)
-  - Co-founder of Refresh (https://refresh.tj)
-  - Founder of Makon, his own real estate product in Tajikistan
+  - Business Developer at CifarX (https://cifarx.com/)
+  - Co-founder of Refresh (https://refresh.tj/en)
+  - Founder of Makon, his own real estate product in Tajikistan (https://makon.online/ru)
+  - Founder of Spendly, his own app for accounts, ledgers and transactions (https://spendly.mobi/en/)
 - Companies he has worked with:
-  - SoftClub (https://www.softclub.tj/)
+  - SoftClub (https://www.softclub.tj/en)
   - LakLak (https://laklakmarket.tj/)
   - Webmarket (https://webmarket.tj/)
-  - Flora Park (https://florapark.tj/)
+  - Asia Print (https://asiaprint.tj/)
 - Education:
   - B.A. in Computer Science and Mathematics, Lewis & Clark College (Portland, Oregon, USA)
   - High school, Dushanbe International School (Dushanbe, Tajikistan)
@@ -52,8 +53,9 @@ Russian-language versions of every page are available under /ru.
 
 Shohrukh Jalolov is an entrepreneur, business developer, and founder based in Dushanbe,
 Tajikistan. He leads business development at CifarX, co-founded the startup Refresh, and
-founded Makon, his own real estate product. He has worked with SoftClub, LakLak,
-Webmarket, and Flora Park. He studied Computer Science and Mathematics at Lewis & Clark
+founded two products of his own: Makon, a real estate product, and Spendly, an app for
+accounts, ledgers and transactions. He has worked with SoftClub, LakLak, Webmarket,
+and Asia Print. He studied Computer Science and Mathematics at Lewis & Clark
 College in Portland, Oregon, and completed high school at Dushanbe International School.
 He speaks Tajik, Russian, English, Turkish, and Uzbek, and has traveled across the United
 States, Canada, Russia, Romania, Türkiye, China, Uzbekistan, and Kazakhstan. His work

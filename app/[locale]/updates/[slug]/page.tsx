@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
+import { CaretLeft } from "@phosphor-icons/react/dist/ssr";
 
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata, breadcrumbSchema, articleSchema } from "@/lib/seo";
@@ -63,36 +63,36 @@ export default async function UpdatePostPage({ params }: Params) {
         ]}
       />
 
-      <div className="mx-auto max-w-2xl px-6 pb-24 pt-20 md:pt-28">
-        <Reveal>
-          <Link
-            href={`/${loc}/updates`}
-            className="inline-flex items-center gap-1.5 font-mono text-xs text-ink-faint transition-colors hover:text-ink"
-          >
-            <ArrowLeft size={14} />
-            {dict.updatesPage.backToList}
-          </Link>
+      <div className="shell pb-24 pt-10 md:pb-32 md:pt-16">
+        <div className="mx-auto max-w-[46rem]">
+          <Reveal>
+            <Link
+              href={`/${loc}/updates`}
+              className="inline-flex h-10 items-center gap-2 rounded-full bg-surface pl-3 pr-5 text-sm text-ink transition-colors hover:bg-surface-2"
+            >
+              <CaretLeft size={16} weight="bold" />
+              {dict.updatesPage.backToList}
+            </Link>
 
-          <p className="mt-8 font-mono text-xs text-ink-faint">
-            {dict.updatesPage.published} · {formatDate(post.date, loc)}
-          </p>
-          <h1 className="mt-4 text-[length:var(--text-h1)] text-ink">
-            {post.title}
-          </h1>
-          {post.summary && (
-            <p className="mt-5 text-lg leading-relaxed text-ink-soft">
-              {post.summary}
+            <p className="mt-12 caps text-ink-faint">
+              {dict.updatesPage.published} · {formatDate(post.date, loc)}
             </p>
-          )}
-        </Reveal>
+            <h1 className="display mt-5 text-[length:var(--text-h1)]">{post.title}</h1>
+            {post.summary && (
+              <p className="mt-6 text-[clamp(1.2rem,1.9vw,1.5rem)] font-medium leading-[1.35] tracking-[-0.02em] text-ink-soft">
+                {post.summary}
+              </p>
+            )}
+          </Reveal>
 
-        <Reveal delay={80}>
-          <div className="prose mt-12 border-t border-line pt-10">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {post.content}
-            </ReactMarkdown>
-          </div>
-        </Reveal>
+          <Reveal delay={80}>
+            <div className="prose mt-14 border-t border-line pt-12">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {post.content}
+              </ReactMarkdown>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </article>
   );

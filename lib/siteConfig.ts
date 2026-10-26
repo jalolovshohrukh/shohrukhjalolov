@@ -24,12 +24,14 @@ export const siteConfig = {
 
   /** Ventures + companies worked with — links also used as `sameAs` signals. */
   ventureLinks: {
-    cifarx: "https://cifarx.com",
-    refresh: "https://refresh.tj",
-    softclub: "https://www.softclub.tj/",
+    cifarx: "https://cifarx.com/",
+    refresh: "https://refresh.tj/en",
+    makon: "https://makon.online/ru",
+    spendly: "https://spendly.mobi/en/",
+    softclub: "https://www.softclub.tj/en",
     laklak: "https://laklakmarket.tj/",
     webmarket: "https://webmarket.tj/",
-    florapark: "https://florapark.tj/",
+    asiaprint: "https://asiaprint.tj/",
   },
 } as const;
 
@@ -43,6 +45,8 @@ export const sameAs: string[] = [
   siteConfig.socials.facebook,
   siteConfig.ventureLinks.cifarx,
   siteConfig.ventureLinks.refresh,
+  siteConfig.ventureLinks.makon,
+  siteConfig.ventureLinks.spendly,
 ];
 
 export const educationFacts = [
