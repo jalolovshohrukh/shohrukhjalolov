@@ -7,13 +7,11 @@ export function Wordmark({ company }: { company: Company }) {
   return (
     <>
       {text}
-      {dot && (
-        <span
-          aria-hidden="true"
-          className="ml-[0.05em] inline-block h-[0.2em] w-[0.2em]"
-          style={{ background: dot }}
-        />
-      )}
+      <span
+        aria-hidden="true"
+        className="ml-[0.05em] inline-block h-[0.2em] w-[0.2em]"
+        style={{ background: dot }}
+      />
     </>
   );
 }

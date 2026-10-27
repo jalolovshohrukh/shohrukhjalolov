@@ -15,7 +15,21 @@ type MetaInput = {
   path?: string; // without locale prefix
   title: string;
   description: string;
+  /** ISO date; set for articles (weekly updates) so they are typed as articles. */
+  publishedTime?: string;
 };
+
+/**
+ * hreflang alternates for one path (path WITHOUT locale prefix). x-default is
+ * the bare root for the home page, because "/" picks a language per visitor
+ * (proxy.ts); pointing it at /en makes Google treat /en as a duplicate of "/".
+ */
+export function languageAlternates(path = ""): Record<string, string> {
+  const languages: Record<string, string> = {};
+  for (const l of locales) languages[l] = pageUrl(l, path);
+  languages["x-default"] = path === "" || path === "/" ? `${siteConfig.url}/` : pageUrl("en", path);
+  return languages;
+}
 
 /**
  * Per-page metadata with canonical + hreflang alternates (en/ru/x-default),
@@ -26,27 +40,29 @@ export function buildMetadata({
   path = "",
   title,
   description,
+  publishedTime,
 }: MetaInput): Metadata {
-  const languages: Record<string, string> = {};
-  for (const l of locales) languages[l] = pageUrl(l, path);
-  languages["x-default"] = pageUrl("en", path);
-
+  const languages = languageAlternates(path);
   const url = pageUrl(locale, path);
+  const shared = {
+    url,
+    siteName: siteConfig.name,
+    title,
+    description,
+    locale: OG_LOCALE[locale],
+    alternateLocale: locales.filter((l) => l !== locale).map((l) => OG_LOCALE[l]),
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: siteConfig.name }],
+  };
 
   return {
     metadataBase: new URL(siteConfig.url),
     title,
     description,
     alternates: { canonical: url, languages },
-    openGraph: {
-      type: "website",
-      url,
-      siteName: siteConfig.name,
-      title,
-      description,
-      locale: OG_LOCALE[locale],
-      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: siteConfig.name }],
-    },
+    // A dated page (a weekly update) is an article; everything else is the site.
+    openGraph: publishedTime
+      ? { ...shared, type: "article", publishedTime, authors: [pageUrl(locale, "/about")] }
+      : { ...shared, type: "website" },
     twitter: {
       card: "summary_large_image",
       title,
@@ -56,14 +72,33 @@ export function buildMetadata({
   };
 }
 
+/** One id for Shohrukh across every page, so engines merge them into one entity. */
+export const PERSON_ID = `${siteConfig.url}/#person`;
+
+/** Ventures (dictionary ids) that Shohrukh founded or co-founded; CifarX is his employer. */
+const FOUNDED = new Set(["refresh", "makon", "spendly"]);
+const EMPLOYER = "cifarx";
+
+/** Stable entity id for a company: its site origin, not a localized page. */
+function orgId(url: string): string {
+  return `${new URL(url).origin}/#org`;
+}
+
 /** schema.org Person — the core entity signal AI engines resolve. */
 export function personSchema(locale: Locale) {
   const dict = getDictionary(locale);
+  const employer = dict.ventures.items.find((v) => v.id === EMPLOYER);
+  // Every spelling of the name the site uses (Latin + Cyrillic), minus the main one.
+  const alternateName = [
+    ...new Set(locales.map((l) => getDictionary(l).hero.name)),
+  ].filter((name) => name !== siteConfig.name);
+
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    "@id": `${siteConfig.url}/#person`,
+    "@id": PERSON_ID,
     name: siteConfig.name,
+    alternateName,
     url: pageUrl(locale),
     jobTitle: "Business Developer",
     description: dict.bioLong,
@@ -71,12 +106,14 @@ export function personSchema(locale: Locale) {
     knowsAbout: [
       "Business development",
       "Startups",
+      "Product development",
+      "Fintech",
       "Real estate",
       "Entrepreneurship",
       "Central Asia technology ecosystem",
     ],
     nationality: { "@type": "Country", name: "Tajikistan" },
-    worksFor: { "@type": "Organization", name: "CifarX", url: siteConfig.ventureLinks.cifarx },
+    ...(employer?.url ? { worksFor: { "@id": orgId(employer.url) } } : {}),
     alumniOf: educationFacts.map((e) => ({
       "@type": "EducationalOrganization",
       name: e.institution,
@@ -96,21 +133,24 @@ export function personSchema(locale: Locale) {
   };
 }
 
-/** schema.org Organization for Refresh (co-founded). */
-export function refreshSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    // The site origin, not the localized page, keeps the entity id stable.
-    "@id": `${new URL(siteConfig.ventureLinks.refresh).origin}/#org`,
-    name: "Refresh",
-    url: siteConfig.ventureLinks.refresh,
-    founder: { "@id": `${siteConfig.url}/#person` },
-    foundingLocation: {
-      "@type": "Place",
-      address: { "@type": "PostalAddress", addressCountry: "TJ" },
-    },
-  };
+/**
+ * schema.org Organization for each venture, linked back to the Person: founder
+ * of the ones he founded or co-founded, employer for CifarX (via worksFor).
+ */
+export function venturesSchema(locale: Locale) {
+  const dict = getDictionary(locale);
+  return dict.ventures.items
+    .filter((v) => v.url)
+    .map((v) => ({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": orgId(v.url),
+      name: v.name,
+      url: v.url,
+      description: v.blurb,
+      ...(FOUNDED.has(v.id) ? { founder: { "@id": PERSON_ID } } : {}),
+      ...(v.id === EMPLOYER ? { employee: { "@id": PERSON_ID } } : {}),
+    }));
 }
 
 export function websiteSchema(locale: Locale) {
@@ -121,7 +161,23 @@ export function websiteSchema(locale: Locale) {
     url: siteConfig.url,
     name: siteConfig.name,
     inLanguage: locale,
-    publisher: { "@id": `${siteConfig.url}/#person` },
+    about: { "@id": PERSON_ID },
+    publisher: { "@id": PERSON_ID },
+  };
+}
+
+/** schema.org ProfilePage — tells search engines the About page is about one person. */
+export function profilePageSchema(locale: Locale) {
+  const dict = getDictionary(locale);
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${pageUrl(locale, "/about")}#profile`,
+    url: pageUrl(locale, "/about"),
+    name: dict.meta.about.title,
+    inLanguage: locale,
+    mainEntity: { "@id": PERSON_ID },
+    isPartOf: { "@id": `${siteConfig.url}/#website` },
   };
 }
 
@@ -167,7 +223,9 @@ export function articleSchema(
     dateModified: post.date,
     inLanguage: locale,
     url: pageUrl(locale, `/updates/${post.slug}`),
-    author: { "@id": `${siteConfig.url}/#person` },
-    publisher: { "@id": `${siteConfig.url}/#person` },
+    mainEntityOfPage: pageUrl(locale, `/updates/${post.slug}`),
+    image: `${siteConfig.url}/opengraph-image`,
+    author: { "@type": "Person", "@id": PERSON_ID, name: siteConfig.name, url: pageUrl(locale) },
+    publisher: { "@id": PERSON_ID },
   };
 }

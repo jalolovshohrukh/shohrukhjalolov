@@ -11,8 +11,9 @@ type Props = {
   external?: boolean;
 };
 
-const BASE =
-  "group inline-flex items-center gap-3 whitespace-nowrap rounded-full caps transition-colors duration-200";
+// Transitions come from .liquid (globals.css); a Tailwind transition class
+// here would override its springy transform.
+const BASE = "group inline-flex items-center gap-3 whitespace-nowrap rounded-full caps";
 
 const SIZE = {
   md: "h-12 px-6",
@@ -20,13 +21,13 @@ const SIZE = {
 } as const;
 
 const LOOK = {
-  primary: "bg-accent text-on-accent hover:bg-accent-hover",
-  ghost: "bg-surface text-ink hover:bg-surface-2",
+  primary: "liquid liquid-ember",
+  ghost: "liquid liquid-clear",
 } as const;
 
 /**
- * Filled pill button (no stroke). Primary is ember with an arrow that nudges
- * on hover; ghost is a quiet surface pill led by an ember asterisk.
+ * Liquid-glass pill button (iOS 26 style, no stroke). Primary is ember glass
+ * with an arrow that nudges on hover; ghost is clear glass led by an ember asterisk.
  */
 export function Cta({
   href,

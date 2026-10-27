@@ -93,7 +93,7 @@ export function Nav({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-ink transition-colors hover:bg-surface-2"
+            className="liquid liquid-clear flex h-10 w-10 items-center justify-center rounded-full"
           >
             {open ? <X size={18} weight="bold" /> : <List size={18} weight="bold" />}
           </button>

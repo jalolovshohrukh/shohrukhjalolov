@@ -21,7 +21,7 @@ export const en = {
     home: {
       title: "Shohrukh Jalolov — Entrepreneur, Business Developer & Founder",
       description:
-        "Shohrukh Jalolov is an entrepreneur and business developer based in Dushanbe, Tajikistan — Business Developer at CifarX, co-founder of Refresh, and founder of Makon and Spendly.",
+        "Shohrukh Jalolov is an entrepreneur from Dushanbe, Tajikistan: Business Developer at CifarX, co-founder of Refresh, and founder of Makon and Spendly.",
     },
     about: {
       title: "About — Shohrukh Jalolov",

@@ -26,11 +26,12 @@ app/
     page.tsx           # Home
     about | work | vision | contact / page.tsx
     updates/           # Weekly Updates index + [slug] post template
-  sitemap.ts robots.ts opengraph-image.tsx
+  sitemap.ts robots.ts opengraph-image.tsx icon.tsx apple-icon.tsx
+  llms.txt/route.ts    # /llms.txt, generated from the dictionaries (lib/llms.ts)
 content/updates/{en,ru}/*.md   # weekly update posts
 lib/                   # i18n, dictionaries, posts loader, SEO/structured-data
 components/            # Nav, Footer, cards, Reveal motion, JsonLd
-public/llms.txt        # machine-readable summary for AI crawlers
+scripts/indexnow.mjs   # ping Bing/Yandex (IndexNow) after a deploy
 proxy.ts               # locale redirect (Next 16 "proxy", was "middleware")
 ```
 
@@ -60,28 +61,32 @@ The post appears automatically at `/en/updates/my-slug` and in the index.
 
 ## AI SEO / GEO
 
-- `Person` / `Organization` / `WebSite` / `FAQPage` / `BlogPosting` / `BreadcrumbList`
-  JSON-LD (see `lib/seo.ts`) — including a `sameAs` entity graph.
-- Per-page metadata with canonical + `hreflang` (en/ru/x-default), OpenGraph + Twitter.
-- `robots.txt` explicitly allows AI crawlers; `sitemap.xml` carries hreflang;
-  `public/llms.txt` gives a clean factual summary.
+- **Address:** `siteConfig.url` comes from Vercel's `VERCEL_PROJECT_PRODUCTION_URL`
+  (the production domain), falling back to `shohrukhjalolov.vercel.app`. Connecting a
+  custom domain in Vercel moves every canonical, sitemap entry and JSON-LD id over on
+  the next deploy, with no code change.
+- **Structured data** (`lib/seo.ts`): one `Person` (with the Russian spelling as
+  `alternateName`, `sameAs` = his own profiles only), an `Organization` per venture
+  linked back to him (founder of Refresh, Makon and Spendly; employee of CifarX),
+  `WebSite`, `ProfilePage` (About), `FAQPage`, `BlogPosting`, `BreadcrumbList`.
+- **Per-page metadata:** canonical + `hreflang` (en/ru, x-default = the root for the
+  home page, English elsewhere), Open Graph (`article` for weekly updates) + Twitter.
+- **Crawlers:** `robots.txt` names search, AI-answer and AI-training crawlers (training
+  allowed by choice); `sitemap.xml` carries hreflang and post dates.
+- **`/llms.txt`** is generated from the dictionaries at build time, so it can't drift;
+  it never includes the email address.
+- **IndexNow:** `public/<key>.txt` proves ownership; after a content deploy run
+  `node scripts/indexnow.mjs https://shohrukhjalolov.vercel.app` (use the live origin).
 - Copy is written "quotable-first" so AI engines can cite self-contained sentences.
 
-## Before deploy — fill these in
+## Still to fill in
 
-Edit `lib/siteConfig.ts`:
-
-- [ ] `url` → the final production domain (currently `https://shohrukhjalolov.com`).
-- [ ] Confirm exact **LinkedIn** and **Facebook** profile URLs.
-
-Edit the dictionaries (`lib/dictionaries/en.ts` and `ru.ts`):
-
-- [ ] Real estate venture — replace the `realestate` item's name / link / blurb.
-- [ ] Any specifics of your own early-stage startup.
-- [ ] Confirm the "Companies I have worked with" list and add LakLak's URL if it has a site.
+- [ ] Exact **LinkedIn** and **Facebook** profile URLs in `lib/siteConfig.ts`
+      (currently best guesses; they feed `sameAs`).
 
 ## Deploy (Vercel)
 
-1. Push to GitHub.
-2. Import the repo at vercel.com → it auto-detects Next.js.
-3. Add your custom domain and update `siteConfig.url` to match.
+1. Push to GitHub; Vercel builds `main` automatically.
+2. Optional: add a custom domain in Vercel; the site's URLs follow it (see above).
+3. Register the site in Google Search Console and Bing Webmaster Tools and submit
+   `/sitemap.xml` (Bing feeds ChatGPT search).

@@ -34,6 +34,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     path: `/updates/${slug}`,
     title: `${post.title} — Shohrukh Jalolov`,
     description: post.summary,
+    publishedTime: post.date,
   });
 }
 

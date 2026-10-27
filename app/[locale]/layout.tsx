@@ -5,11 +5,12 @@ import "../globals.css";
 
 import { locales, getDictionary, isLocale } from "@/lib/i18n";
 import { siteConfig } from "@/lib/siteConfig";
-import { personSchema, websiteSchema, refreshSchema } from "@/lib/seo";
+import { personSchema, websiteSchema, venturesSchema } from "@/lib/seo";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { ThemeScript } from "@/components/ThemeScript";
+import { LiquidGlass } from "@/components/LiquidGlass";
 
 // Inter is the one typeface: variable weight plus the optical-size axis, which
 // gives big headings a tighter display cut. Cyrillic covers Russian, and
@@ -64,12 +65,15 @@ export default async function LocaleLayout({
         >
           Skip to content
         </a>
-        <JsonLd data={[personSchema(locale), websiteSchema(locale), refreshSchema()]} />
+        <JsonLd
+          data={[personSchema(locale), websiteSchema(locale), ...venturesSchema(locale)]}
+        />
         <Nav locale={locale} dict={dict} />
         <main id="main" className="flex-1">
           {children}
         </main>
         <Footer locale={locale} dict={dict} />
+        <LiquidGlass />
       </body>
     </html>
   );

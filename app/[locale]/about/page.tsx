@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
-import { buildMetadata, breadcrumbSchema } from "@/lib/seo";
+import { buildMetadata, breadcrumbSchema, profilePageSchema } from "@/lib/seo";
 import { Reveal } from "@/components/Reveal";
 import { Cta } from "@/components/Cta";
 import { JsonLd } from "@/components/JsonLd";
@@ -32,10 +32,13 @@ export default async function AboutPage({ params }: Params) {
   return (
     <>
       <JsonLd
-        data={breadcrumbSchema(loc, [
-          { name: dict.nav.home, path: "" },
-          { name: dict.nav.about, path: "/about" },
-        ])}
+        data={[
+          profilePageSchema(loc),
+          breadcrumbSchema(loc, [
+            { name: dict.nav.home, path: "" },
+            { name: dict.nav.about, path: "/about" },
+          ]),
+        ]}
       />
 
       <PageHero

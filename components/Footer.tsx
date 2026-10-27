@@ -45,7 +45,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                 {dict.footer.headline}
               </h2>
               <p className="mt-5 max-w-sm text-ink-soft">{dict.footer.tagline}</p>
-              <EmailMe className="group mt-8 inline-flex h-12 cursor-pointer items-center gap-3 rounded-full bg-accent px-6 caps text-on-accent transition-colors hover:bg-accent-hover">
+              <EmailMe className="liquid liquid-ember group mt-8 inline-flex h-12 cursor-pointer items-center gap-3 rounded-full px-6 caps">
                 <span>{dict.contact.ctaEmail}</span>
                 <ArrowUpRight
                   size={15}
